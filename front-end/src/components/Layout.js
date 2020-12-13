@@ -25,6 +25,8 @@ import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar'
 
 import Footer from './Footer'
 import HomeScreen from '../screens/HomeScreen'
+import { BrowserRouter, Link, Route, Switch } from 'react-router-dom'
+import ProductScreen from '../screens/ProductScreen'
 
 const drawerWidth = 240
 
@@ -104,7 +106,7 @@ const Layout = () => {
 	}
 
 	return (
-		<>
+		<BrowserRouter>
 			<div className={classes.root}>
 				<CssBaseline />
 				<AppBar
@@ -154,69 +156,104 @@ const Layout = () => {
 					</div>
 					<Divider />
 					<List>
-						<ListItem button>
-							<ListItemIcon>
-								<HomeIcon />
-							</ListItemIcon>
-							<ListItemText primary={'Home'} />
-						</ListItem>
+						<Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
+							<ListItem button>
+								<ListItemIcon>
+									<HomeIcon />
+								</ListItemIcon>
+								<ListItemText primary={'Home'} />
+							</ListItem>
+						</Link>
 
-						<ListItem button>
-							<ListItemIcon>
-								<SearchIcon />
-							</ListItemIcon>
-							<ListItemText primary={'Search'} />
-						</ListItem>
+						<Link
+							to='/search'
+							style={{ textDecoration: 'none', color: 'inherit' }}
+						>
+							<ListItem button>
+								<ListItemIcon>
+									<SearchIcon />
+								</ListItemIcon>
+								<ListItemText primary={'Search'} />
+							</ListItem>
+						</Link>
 
-						<ListItem button>
-							<ListItemIcon>
-								<ShoppingCartIcon />
-							</ListItemIcon>
-							<ListItemText primary={'Cart'} />
-						</ListItem>
+						<Link
+							to='/cart'
+							style={{ textDecoration: 'none', color: 'inherit' }}
+						>
+							<ListItem button>
+								<ListItemIcon>
+									<ShoppingCartIcon />
+								</ListItemIcon>
+								<ListItemText primary={'Cart'} />
+							</ListItem>
+						</Link>
 
-						<ListItem button>
-							<ListItemIcon>
-								<FavoriteIcon />
-							</ListItemIcon>
-							<ListItemText primary={'Wishlist'} />
-						</ListItem>
+						<Link
+							to='/wishlist'
+							style={{ textDecoration: 'none', color: 'inherit' }}
+						>
+							<ListItem button>
+								<ListItemIcon>
+									<FavoriteIcon />
+								</ListItemIcon>
+								<ListItemText primary={'Wishlist'} />
+							</ListItem>
+						</Link>
 
-						<ListItem button>
-							<ListItemIcon>
-								<PermContactCalendarIcon />
-							</ListItemIcon>
-							<ListItemText primary={'Log in'} />
-						</ListItem>
+						<Link
+							to='/login'
+							style={{ textDecoration: 'none', color: 'inherit' }}
+						>
+							<ListItem button>
+								<ListItemIcon>
+									<PermContactCalendarIcon />
+								</ListItemIcon>
+								<ListItemText primary={'Log in'} />
+							</ListItem>
+						</Link>
 					</List>
 
 					<Divider />
 
 					<List>
-						<ListItem button>
-							<ListItemIcon>
-								<PersonIcon />
-							</ListItemIcon>
-							<ListItemText primary={'Profile'} />
-						</ListItem>
+						<Link
+							to='/profile'
+							style={{ textDecoration: 'none', color: 'inherit' }}
+						>
+							<ListItem button>
+								<ListItemIcon>
+									<PersonIcon />
+								</ListItemIcon>
+								<ListItemText primary={'Profile'} />
+							</ListItem>
+						</Link>
 
-						<ListItem button>
-							<ListItemIcon>
-								<PermContactCalendarIcon />
-							</ListItemIcon>
-							<ListItemText primary={'Contact us'} />
-						</ListItem>
+						<Link
+							to='/contactus'
+							style={{ textDecoration: 'none', color: 'inherit' }}
+						>
+							<ListItem button>
+								<ListItemIcon>
+									<PermContactCalendarIcon />
+								</ListItemIcon>
+								<ListItemText primary={'Contact us'} />
+							</ListItem>
+						</Link>
 					</List>
 				</Drawer>
 				<main>
 					<div className={classes.content}>
 						<div className={classes.toolbar} />
-						<HomeScreen />
+						<Switch>
+							<Route exact path='/' component={HomeScreen} />
+							<Route path='/product/:id' component={ProductScreen} />
+						</Switch>
 					</div>
 				</main>
 			</div>
 			<Footer />
-		</>
+		</BrowserRouter>
 	)
 }
 
