@@ -1,11 +1,9 @@
 const products = [
 	{
-		name: 'Airpods Wireless Bluetooth Headphones',
+		name: 'Avengers Circle Sun Active T-Shirt (AVL)',
 		image: '/images/airpods.jpg',
-		description:
-			'Bluetooth technology lets you connect it with compatible devices wirelessly High-quality AAC audio offers immersive listening experience Built-in microphone allows you to take calls while working',
-		brand: 'Apple',
-		category: 'Electronics',
+		description: 'Classic, lightweight jersey fabric comprising 100% cotton.',
+		category: 'Mens',
 		price: 89.99,
 		size: 'SML',
 		countInStock_L: 1,
@@ -15,12 +13,10 @@ const products = [
 		countInStock_XXL: 5,
 	},
 	{
-		name: 'iPhone 11 Pro 256GB Memory',
+		name: 'Milestone Half Sleeve T-Shirt Jade Green',
 		image: '/images/phone.jpg',
-		description:
-			'Introducing the iPhone 11 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life',
-		brand: 'Apple',
-		category: 'Electronics',
+		description: 'Classic, lightweight jersey fabric comprising 100% cotton.',
+		category: 'Mens',
 		price: 599.99,
 		size: 'SML',
 		countInStock_L: 1,
@@ -30,12 +26,10 @@ const products = [
 		countInStock_XXL: 5,
 	},
 	{
-		name: 'Cannon EOS 80D DSLR Camera',
+		name: 'Jet Black Full Sleeve Henley T-Shirt',
 		image: '/images/camera.jpg',
-		description:
-			'Characterized by versatile imaging specs, the Canon EOS 80D further clarifies itself using a pair of robust focusing systems and an intuitive design',
-		brand: 'Cannon',
-		category: 'Electronics',
+		description: 'Classic, lightweight jersey fabric comprising 100% cotton.',
+		category: 'Mens',
 		price: 929.99,
 		size: 'SML',
 		countInStock_L: 1,
@@ -45,12 +39,10 @@ const products = [
 		countInStock_XXL: 5,
 	},
 	{
-		name: 'Sony Playstation 4 Pro White Version',
+		name: 'Milestone Full Sleeve T-Shirt Vintage Orange',
 		image: '/images/playstation.jpg',
-		description:
-			'The ultimate home entertainment center starts with PlayStation. Whether you are into gaming, HD movies, television, music',
-		brand: 'Sony',
-		category: 'Electronics',
+		description: 'Classic, lightweight jersey fabric comprising 100% cotton.',
+		category: 'Women',
 		price: 399.99,
 		size: 'SML',
 		countInStock_L: 1,
@@ -60,12 +52,10 @@ const products = [
 		countInStock_XXL: 5,
 	},
 	{
-		name: 'Logitech G-Series Gaming Mouse',
+		name: 'Sunset Block Full Sleeve T-Shirt',
 		image: '/images/mouse.jpg',
-		description:
-			'Get a better handle on your games with this Logitech LIGHTSYNC gaming mouse. The six programmable buttons allow customization for a smooth playing experience',
-		brand: 'Logitech',
-		category: 'Electronics',
+		description: 'Classic, lightweight jersey fabric comprising 100% cotton.',
+		category: 'Women',
 		price: 49.99,
 		size: 'SML',
 		countInStock_L: 1,
@@ -75,12 +65,10 @@ const products = [
 		countInStock_XXL: 5,
 	},
 	{
-		name: 'Amazon Echo Dot 3rd Generation',
+		name: 'Biker Bro Vest',
 		image: '/images/alexa.jpg',
-		description:
-			'Meet Echo Dot - Our most popular smart speaker with a fabric design. It is our most compact smart speaker that fits perfectly into small space',
-		brand: 'Amazon',
-		category: 'Electronics',
+		description: 'Classic, lightweight jersey fabric comprising 100% cotton.',
+		category: 'Women',
 		price: 29.99,
 		size: 'SML',
 		countInStock_L: 1,

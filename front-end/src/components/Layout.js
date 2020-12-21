@@ -27,6 +27,7 @@ import Footer from './Footer'
 import HomeScreen from '../screens/HomeScreen'
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom'
 import ProductScreen from '../screens/ProductScreen'
+import CartScreen from '../screens/CartScreen'
 
 const drawerWidth = 240
 
@@ -248,6 +249,7 @@ const Layout = () => {
 						<Switch>
 							<Route exact path='/' component={HomeScreen} />
 							<Route path='/product/:id' component={ProductScreen} />
+							<Route path='/cart/:id?' component={CartScreen} />
 						</Switch>
 					</div>
 				</main>

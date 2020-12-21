@@ -1,25 +1,48 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-import Rating from '../components/Rating'
 import { productDetail } from '../action/productAction'
 
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
-const ProductScreen = ({ match }) => {
+const ProductScreen = ({ history, match }) => {
 	const dispatch = useDispatch()
 
-	useEffect(() => {
-		dispatch(productDetail(match.params.id))
-	}, [dispatch, match.params.id])
+	const [quantity, setQuantity] = useState(1)
 
 	const productResponse = useSelector((state) => {
 		return state.productDetail
 	})
 	const { loading, product, error } = productResponse
+
+	useEffect(() => {
+		dispatch(productDetail(match.params.id))
+	}, [dispatch, match.params.id])
+
+	const addQuantity = () => {
+		if (quantity >= product.countInStock_S) {
+			return
+		}
+		const oldQuantity = quantity
+		const newQuantity = oldQuantity + 1
+		setQuantity(newQuantity)
+	}
+
+	const removeQuantity = () => {
+		if (quantity <= 1) {
+			return
+		}
+		const oldQuantity = quantity
+		const newQuantity = oldQuantity - 1
+		setQuantity(newQuantity)
+	}
+
+	const addToCartHandler = () => {
+		history.push(`/cart/${match.params.id}?qty=${quantity}`)
+	}
 
 	return (
 		<>
@@ -39,12 +62,6 @@ const ProductScreen = ({ match }) => {
 						<ListGroup variant='flush'>
 							<ListGroup.Item>
 								<h3>{product.name}</h3>
-							</ListGroup.Item>
-							<ListGroup.Item>
-								<Rating
-									value={product.rating}
-									text={`${product.numReviews} Reviews`}
-								/>
 							</ListGroup.Item>
 							<ListGroup.Item>Price : $ {product.price}</ListGroup.Item>
 							<ListGroup.Item>
@@ -68,13 +85,32 @@ const ProductScreen = ({ match }) => {
 									<Row>
 										<Col>Status :</Col>
 										<Col>
-											{product.countInStock > 0 ? 'In stock' : 'Out of  stock'}
+											{product.countInStock_S > 0
+												? 'In stock'
+												: 'Out of  stock'}
 										</Col>
 									</Row>
 								</ListGroup.Item>
+								{product.countInStock_S > 0 && (
+									<ListGroup.Item>
+										<Row>
+											<Col className='mt-1'>Quantity :</Col>
+											<Col>
+												<Button onClick={removeQuantity} size='sm'>
+													-
+												</Button>
+												<span style={{ margin: 10 }}>{quantity}</span>
+												<Button onClick={addQuantity} size='sm'>
+													+
+												</Button>
+											</Col>
+										</Row>
+									</ListGroup.Item>
+								)}
 
 								<ListGroup.Item>
 									<Button
+										onClick={addToCartHandler}
 										className='btn-block'
 										type='button'
 										disabled={product.countInStock === 0 ? true : false}
