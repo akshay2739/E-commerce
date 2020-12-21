@@ -4,7 +4,7 @@ import colors from 'colors'
 
 import sequelize from './config/db.js'
 
-import router from './routes/ProductRoutes.js'
+import productRoutes from './routes/ProductRoutes.js'
 
 import { errorhandler, notFound } from './middleware/errorMiddleware.js'
 
@@ -12,16 +12,21 @@ import Products from './models/ProductModel.js'
 import User from './models/UserModel.js'
 import Orders from './models/OrderModel.js'
 import OrderItem from './models/OrderItem.js'
+import userRoutes from './routes/userRoutes.js'
 
 dotenv.config()
 
 const app = express()
 
+app.use(express.json())
+
 app.get('/', (req, res) => {
 	res.send('api is running')
 })
 
-app.use('/api/products', router)
+app.use('/api/products', productRoutes)
+
+app.use('/api/users', userRoutes)
 
 app.use(notFound)
 
