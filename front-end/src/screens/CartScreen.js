@@ -45,7 +45,7 @@ const CartScreen = ({ match, location, history }) => {
 
 	return (
 		<Container>
-			<Row>
+			<Row className='align-items-center'>
 				<Col md={8}>
 					<h1>Shopping cart</h1>
 					{cartItems.length === 0 ? (
@@ -56,17 +56,23 @@ const CartScreen = ({ match, location, history }) => {
 						<ListGroup variant='flush'>
 							{cartItems.map((item) => (
 								<ListGroup.Item key={item.id}>
-									<Row>
-										<Col md={2}>
+									<Row className='align-items-center'>
+										<Col md={2} xs={4} classsName='my-auto'>
 											<Image src={item.image} alt={item.name} fluid rounded />
 										</Col>
-										<Col md={2}>
+										<Col md={2} xs={8}>
 											<Link to={`/product/${item.id}`}>{item.name}</Link>
 										</Col>
-										<Col md={2}>Size : L</Col>
-										<Col md={2}>Quantity : {item.quantity}</Col>
-										<Col md={2}>$ {item.price}</Col>
-										<Col md={2}>
+										<Col md={2} xs={3}>
+											Size : L
+										</Col>
+										<Col md={2} xs={4}>
+											Qty : {item.quantity}
+										</Col>
+										<Col md={2} xs={3}>
+											$ {item.price}
+										</Col>
+										<Col md={2} xs={2}>
 											<Button
 												type='button'
 												variant='light'

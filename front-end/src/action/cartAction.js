@@ -15,7 +15,7 @@ export const addItemToCartAction = (id, quantity) => async (
 			price: data.price,
 			quantity,
 		}
-		console.log(cartItem)
+
 		dispatch({
 			type: CART_ADD_ITEM,
 			payload: cartItem,

@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import bcrypt from 'bcryptjs'
-
+import colors from 'colors'
 import User from '../models/UserModel.js'
 import generateToken from '../utils/generateToken.js'
 
@@ -12,6 +12,7 @@ export const authUser = asyncHandler(async (req, res) => {
 	const { email, password } = req.body
 
 	const user = await User.findOne({ where: { email: email } })
+	console.log(`${user}`.yellow)
 	if (user && (await bcrypt.compare(password, user.password))) {
 		res.json({
 			id: user.id,
@@ -73,9 +74,44 @@ export const getUserProfile = asyncHandler(async (req, res) => {
 		res.json({
 			id: user.id,
 			name: user.name,
-			email: user.name,
+			email: user.email,
 			isAdmin: user.isAdmin,
 			token: generateToken(user.id),
+		})
+	} else {
+		res.status(404)
+		throw new Error('No user found')
+	}
+})
+
+// Update user profile
+// POST /api/user/profile
+// Private
+
+export const updateUserProfile = asyncHandler(async (req, res) => {
+	const user = await User.findByPk(req.user.id)
+	const salt = await bcrypt.genSalt()
+	if (user) {
+		let encryptedPassword
+		if (req.body.password) {
+			encryptedPassword = await bcrypt.hash(req.body.password, salt)
+		}
+		user.name = req.body.name || user.name
+		user.email = req.body.email || user.email
+		user.password = encryptedPassword || user.password
+		console.log(`${user}`.red)
+		let updatedUser = await User.update(
+			{ name: user.name, email: user.email, password: user.password },
+			{ where: { id: user.id } }
+		)
+
+		updatedUser = await User.findByPk(req.user.id)
+		res.json({
+			id: updatedUser.id,
+			name: updatedUser.name,
+			email: updatedUser.email,
+			isAdmin: updatedUser.isAdmin,
+			token: generateToken(updatedUser.id),
 		})
 	} else {
 		res.status(404)

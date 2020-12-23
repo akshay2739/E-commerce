@@ -3,6 +3,7 @@ import {
 	authUser,
 	createUser,
 	getUserProfile,
+	updateUserProfile,
 } from '../controllers/userController.js'
 import protect from '../middleware/authMiddleware.js'
 
@@ -13,5 +14,7 @@ userRoutes.post('/', createUser)
 userRoutes.post('/login', authUser)
 
 userRoutes.get('/profile', protect, getUserProfile)
+
+userRoutes.put('/profile', protect, updateUserProfile)
 
 export default userRoutes

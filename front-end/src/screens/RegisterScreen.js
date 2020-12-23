@@ -5,17 +5,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import { login } from '../action/userAction'
+import { login, register } from '../action/userAction'
 
-const LoginScreen = ({ location, history }) => {
+const RegisterScreen = ({ location, history }) => {
+	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const [confirmPassword, setConfirmPassword] = useState('')
+	const [message, setMessage] = useState(null)
 
 	const dispatch = useDispatch()
 
-	const userLogin = useSelector((state) => state.userLoginReducer)
-	const { loading, error, userInfo } = userLogin
-
+	const userRegister = useSelector((state) => state.userRegisterReducer)
+	const { loading, error, userInfo } = userRegister
 	const redirect = location.search ? location.search.split('=')[1] : '/'
 
 	useEffect(() => {
@@ -26,47 +28,73 @@ const LoginScreen = ({ location, history }) => {
 
 	const submitHandler = (e) => {
 		e.preventDefault()
-		dispatch(login(email, password))
+		if (password !== confirmPassword) {
+			setMessage('Passwords do not match')
+		} else {
+			dispatch(register(name, email, password))
+		}
 	}
 
 	return (
 		<FormContainer>
-			<h1>Sign in</h1>
+			<h1>Sign Up</h1>
 			{error && <Message variant='danger'>{error}</Message>}
+			{message && <Message variant='danger'>{message}</Message>}
 			{loading && <Loader></Loader>}
 			<Form onSubmit={submitHandler}>
+				<Form.Group controlId='name'>
+					<Form.Label>Name</Form.Label>
+					<Form.Control
+						type='name'
+						placeholder='Enter name'
+						value={name}
+						required
+						onChange={(e) => setName(e.target.value)}
+					></Form.Control>
+				</Form.Group>
+
 				<Form.Group controlId='email'>
 					<Form.Label>Email Address</Form.Label>
 					<Form.Control
-						required
 						type='email'
 						placeholder='Enter Email'
 						value={email}
+						required
 						onChange={(e) => setEmail(e.target.value)}
 					></Form.Control>
 				</Form.Group>
+
 				<Form.Group controlId='password'>
-					<Form.Label>Email Address</Form.Label>
+					<Form.Label>Enter Password</Form.Label>
 					<Form.Control
-						required
 						type='password'
 						placeholder='Enter password'
 						value={password}
+						required
 						onChange={(e) => setPassword(e.target.value)}
 					></Form.Control>
 				</Form.Group>
 
+				<Form.Group controlId='confirmPassword'>
+					<Form.Label>Confirm Password</Form.Label>
+					<Form.Control
+						type='password'
+						placeholder='Confirm password'
+						value={confirmPassword}
+						required
+						onChange={(e) => setConfirmPassword(e.target.value)}
+					></Form.Control>
+				</Form.Group>
+
 				<Button variant='primary' type='submit'>
-					Sign in
+					Sign up
 				</Button>
 
 				<Row className='py-3'>
 					<Col>
-						New Customer ?{' '}
-						<Link
-							to={redirect ? `/register/?redirect=${redirect}` : '/register'}
-						>
-							Register
+						Have an existing account ?{' '}
+						<Link to={redirect ? `/login/?redirect=${redirect}` : '/login'}>
+							Login
 						</Link>
 					</Col>
 				</Row>
@@ -75,4 +103,4 @@ const LoginScreen = ({ location, history }) => {
 	)
 }
 
-export default LoginScreen
+export default RegisterScreen

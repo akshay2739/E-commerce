@@ -1,66 +1,78 @@
 import React from 'react'
-import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap'
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { LinkContainer } from 'react-router-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../action/userAction'
 
 const MyNavbar = () => {
+	const dispatch = useDispatch()
+
+	const userInfo = useSelector((state) => state.userLoginReducer.userInfo)
+
+	const logoutHandler = () => {
+		dispatch(logout())
+	}
+
 	return (
-		<Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
+		<Navbar
+			style={{ backgroundColor: '', position: 'sticky' }}
+			collapseOnSelect
+			expand='lg'
+			bg='dark'
+			variant='dark'
+			fixed='top'
+		>
 			<Container>
 				<Navbar.Brand>
-					<Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
+					<Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
 						My-Shop
 					</Link>
 				</Navbar.Brand>
 				<Navbar.Toggle aria-controls='responsive-navbar-nav' />
 				<Navbar.Collapse id='responsive-navbar-nav'>
 					<Nav className='ml-auto'>
-						<Nav.Link>
-							<Link
-								to='/search'
-								style={{ textDecoration: 'none', color: 'inherit' }}
-							>
-								Search
-							</Link>
-						</Nav.Link>
+						<LinkContainer
+							to='/search'
+							style={{ textDecoration: 'none', color: 'white' }}
+						>
+							<Nav.Link eventKey={2}>Search</Nav.Link>
+						</LinkContainer>
 
-						<Nav.Link>
-							<Link
-								to='/cart'
-								style={{ textDecoration: 'none', color: 'inherit' }}
-							>
-								Cart
-							</Link>
-						</Nav.Link>
+						<LinkContainer
+							to='/cart'
+							style={{ textDecoration: 'none', color: 'white' }}
+						>
+							<Nav.Link eventKey={2}>Cart</Nav.Link>
+						</LinkContainer>
 
-						<Nav.Link>
-							<Link
-								to='/wishlist'
-								style={{ textDecoration: 'none', color: 'inherit' }}
-							>
-								Wishlist
-							</Link>
-						</Nav.Link>
+						<LinkContainer
+							to='/wishlist'
+							style={{ textDecoration: 'none', color: 'white' }}
+						>
+							<Nav.Link eventKey={2}>Wishlist</Nav.Link>
+						</LinkContainer>
 
-						<Nav.Link>
-							<Link
+						{userInfo ? (
+							<NavDropdown
+								title={userInfo.name}
+								style={{ textDecoration: 'none', color: 'white' }}
+							>
+								<LinkContainer to='/profile'>
+									<NavDropdown.Item>Profile</NavDropdown.Item>
+								</LinkContainer>
+								<NavDropdown.Item onClick={logoutHandler}>
+									Log out
+								</NavDropdown.Item>
+							</NavDropdown>
+						) : (
+							<LinkContainer
 								to='/login'
-								style={{ textDecoration: 'none', color: 'inherit' }}
+								style={{ textDecoration: 'none', color: 'white' }}
 							>
-								Login
-							</Link>
-						</Nav.Link>
-
-						<NavDropdown title='Dropdown' id='collasible-nav-dropdown'>
-							<NavDropdown.Item href='#action/3.1'>Action</NavDropdown.Item>
-							<NavDropdown.Item href='#action/3.2'>
-								Another action
-							</NavDropdown.Item>
-							<NavDropdown.Item href='#action/3.3'>Something</NavDropdown.Item>
-							<NavDropdown.Divider />
-							<NavDropdown.Item href='#action/3.4'>
-								Separated link
-							</NavDropdown.Item>
-						</NavDropdown>
+								<Nav.Link eventKey={2}>Login</Nav.Link>
+							</LinkContainer>
+						)}
 					</Nav>
 				</Navbar.Collapse>
 			</Container>
