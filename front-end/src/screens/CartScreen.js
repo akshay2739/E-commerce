@@ -1,5 +1,13 @@
 import React, { useEffect } from 'react'
-import { Button, Col, ListGroup, Row, Image, Form, Card } from 'react-bootstrap'
+import {
+	Button,
+	Col,
+	ListGroup,
+	Row,
+	Image,
+	Card,
+	Container,
+} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {
@@ -36,7 +44,7 @@ const CartScreen = ({ match, location, history }) => {
 	}
 
 	return (
-		<>
+		<Container>
 			<Row>
 				<Col md={8}>
 					<h1>Shopping cart</h1>
@@ -101,7 +109,7 @@ const CartScreen = ({ match, location, history }) => {
 					</Card>
 				</Col>
 			</Row>
-		</>
+		</Container>
 	)
 }
 

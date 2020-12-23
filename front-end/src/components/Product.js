@@ -4,19 +4,19 @@ import { Link } from 'react-router-dom'
 
 const Product = ({ product }) => {
 	return (
-		<Card className='my-3 p-3 rounded'>
+		<Card className='my-3 p-3 rounded shadow'>
 			<Link to={`/product/${product.id}`}>
 				<Card.Img src={product.image} variant='top' />
 			</Link>
 
 			<Card.Body as='div'>
-				<Link to={`/product/${product._id}`}>
+				<Link to={`/product/${product.id}`}>
 					<Card.Title as='div'>
 						<strong>{product.name}</strong>
 					</Card.Title>
 				</Link>
 
-				<Card.Text as='h3'>${product.price}</Card.Text>
+				<Card.Text as='h5'>${product.price}</Card.Text>
 			</Card.Body>
 		</Card>
 	)

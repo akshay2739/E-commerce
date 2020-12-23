@@ -9,7 +9,6 @@ const Loader = () => {
 			style={{
 				width: '100px',
 				height: '100px',
-				marginLeft: 'auto',
 				display: 'block',
 			}}
 		>

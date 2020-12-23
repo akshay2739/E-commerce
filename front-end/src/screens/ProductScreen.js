@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap'
+import {
+	Button,
+	Card,
+	Col,
+	Container,
+	Image,
+	ListGroup,
+	Row,
+} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 import { productDetail } from '../action/productAction'
@@ -45,7 +53,7 @@ const ProductScreen = ({ history, match }) => {
 	}
 
 	return (
-		<>
+		<Container>
 			<Link className='btn btn-light my-3' to='/'>
 				Go back
 			</Link>
@@ -55,10 +63,10 @@ const ProductScreen = ({ history, match }) => {
 				<Message variant='danger'>{error}</Message>
 			) : (
 				<Row>
-					<Col md={6}>
-						<Image src={product.image} alt={product.name} fluid />
+					<Col md={4}>
+						<Image src={product.image} alt={product.name} fluid rounded />
 					</Col>
-					<Col md={3}>
+					<Col md={4}>
 						<ListGroup variant='flush'>
 							<ListGroup.Item>
 								<h3>{product.name}</h3>
@@ -69,7 +77,7 @@ const ProductScreen = ({ history, match }) => {
 							</ListGroup.Item>
 						</ListGroup>
 					</Col>
-					<Col md={3}>
+					<Col md={4}>
 						<Card>
 							<ListGroup variant='flush'>
 								<ListGroup.Item>
@@ -123,7 +131,7 @@ const ProductScreen = ({ history, match }) => {
 					</Col>
 				</Row>
 			)}
-		</>
+		</Container>
 	)
 }
 
