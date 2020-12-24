@@ -94,8 +94,8 @@ const PlaceOrder = ({ history }) => {
 								<ListGroup variant='flush'>
 									{cart.cartItems.map((item, index) => (
 										<ListGroup.Item key={index}>
-											<Row>
-												<Col md={1}>
+											<Row className='align-items-center'>
+												<Col md={2} xs={2}>
 													<Image
 														src={item.image}
 														alt={item.name}
@@ -104,11 +104,11 @@ const PlaceOrder = ({ history }) => {
 													/>
 												</Col>
 
-												<Col>
+												<Col md={6} xs={6}>
 													<Link to={`product/${item.id}`}>{item.name}</Link>
 												</Col>
 
-												<Col md={4}>
+												<Col md={4} xs={4}>
 													{item.quantity} X $ {item.price} = ${' '}
 													{item.quantity * item.price}
 												</Col>
@@ -156,9 +156,11 @@ const PlaceOrder = ({ history }) => {
 								</Row>
 							</ListGroup.Item>
 
-							<ListGroup.Item>
-								{error && <Message variant='danger'>{error}</Message>}
-							</ListGroup.Item>
+							{error && (
+								<ListGroup.Item>
+									<Message variant='danger'>{error}</Message>
+								</ListGroup.Item>
+							)}
 
 							<ListGroup.Item>
 								<Button

@@ -77,8 +77,8 @@ const OrderScreen = ({ match }) => {
 								<ListGroup variant='flush'>
 									{order.products.map((item, index) => (
 										<ListGroup.Item key={index}>
-											<Row>
-												<Col md={1}>
+											<Row className='align-items-center text-center'>
+												<Col md={2} xs={4}>
 													<Image
 														src={item.image}
 														alt={item.name}
@@ -87,11 +87,11 @@ const OrderScreen = ({ match }) => {
 													/>
 												</Col>
 
-												<Col>
+												<Col xs={6}>
 													<Link to={`product/${item.id}`}>{item.name}</Link>
 												</Col>
 
-												<Col md={4}>
+												<Col md={4} xs={12}>
 													{item.orderItem.quantity} x $ {item.price} = ${' '}
 													{item.orderItem.quantity * item.price}
 												</Col>

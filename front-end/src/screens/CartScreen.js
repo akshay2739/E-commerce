@@ -63,10 +63,10 @@ const CartScreen = ({ match, location, history }) => {
 										<Col md={2} xs={8}>
 											<Link to={`/product/${item.id}`}>{item.name}</Link>
 										</Col>
-										<Col md={2} xs={3}>
+										<Col md={2} xs={4}>
 											Size : L
 										</Col>
-										<Col md={2} xs={4}>
+										<Col md={2} xs={3}>
 											Qty : {item.quantity}
 										</Col>
 										<Col md={2} xs={3}>
