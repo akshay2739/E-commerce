@@ -14,10 +14,11 @@ const Orders = sequelize.define(
 			primaryKey: true,
 		},
 		address: {
-			type: DataTypes.INTEGER,
-			city: DataTypes.INTEGER,
-			pin: DataTypes.INTEGER,
+			type: DataTypes.STRING,
 		},
+		city: { type: DataTypes.STRING },
+		postalCode: { type: DataTypes.INTEGER },
+		country: { type: DataTypes.STRING },
 		paymentMethod: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -30,6 +31,15 @@ const Orders = sequelize.define(
 		},
 		paypal_email: {
 			type: DataTypes.STRING,
+		},
+		itemsPrice: {
+			type: DataTypes.INTEGER,
+		},
+		shippingPrice: {
+			type: DataTypes.INTEGER,
+		},
+		taxPrice: {
+			type: DataTypes.INTEGER,
 		},
 		totalPrice: {
 			type: DataTypes.INTEGER,

@@ -13,6 +13,7 @@ import User from './models/UserModel.js'
 import Orders from './models/OrderModel.js'
 import OrderItem from './models/OrderItem.js'
 import userRoutes from './routes/userRoutes.js'
+import orderRoute from './routes/orderRoutes.js'
 
 dotenv.config()
 
@@ -27,6 +28,8 @@ app.get('/', (req, res) => {
 app.use('/api/products', productRoutes)
 
 app.use('/api/users', userRoutes)
+
+app.use('/api/orders', orderRoute)
 
 app.use(notFound)
 
