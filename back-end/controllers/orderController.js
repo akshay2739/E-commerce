@@ -2,6 +2,9 @@ import asyncHandler from 'express-async-handler'
 import Orders from '../models/OrderModel.js'
 import Products from '../models/ProductModel.js'
 import colors from 'colors'
+import User from '../models/UserModel.js'
+import OrderItem from '../models/OrderItem.js'
+
 // Create Order
 // POST /api/orders
 // Private
@@ -41,5 +44,22 @@ export const addOrderItems = asyncHandler(async (req, res) => {
 		})
 
 		res.send(newOrder)
+	}
+})
+
+// Fetch Order by id
+// GET /api/orders/:id
+// Private
+
+export const getOrderById = asyncHandler(async (req, res) => {
+	const order = await Orders.findByPk(req.params.id, {
+		include: [{ model: User }, { model: Products }],
+	})
+
+	if (order && (req.user.isAdmin || order.user.id === req.user.id)) {
+		res.json(order)
+	} else {
+		res.status(404)
+		throw new Error('Order not found')
 	}
 })

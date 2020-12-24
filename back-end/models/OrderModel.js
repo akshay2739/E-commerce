@@ -8,7 +8,7 @@ const Orders = sequelize.define(
 	'orders',
 	{
 		id: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.DOUBLE,
 			autoIncrement: true,
 			allowNull: false,
 			primaryKey: true,
@@ -17,7 +17,7 @@ const Orders = sequelize.define(
 			type: DataTypes.STRING,
 		},
 		city: { type: DataTypes.STRING },
-		postalCode: { type: DataTypes.INTEGER },
+		postalCode: { type: DataTypes.DOUBLE },
 		country: { type: DataTypes.STRING },
 		paymentMethod: {
 			type: DataTypes.STRING,
@@ -33,16 +33,16 @@ const Orders = sequelize.define(
 			type: DataTypes.STRING,
 		},
 		itemsPrice: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.DOUBLE,
 		},
 		shippingPrice: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.DOUBLE,
 		},
 		taxPrice: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.DOUBLE,
 		},
 		totalPrice: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.DOUBLE,
 			allowNull: false,
 		},
 		isPaid: {
