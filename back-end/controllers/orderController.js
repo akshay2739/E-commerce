@@ -63,3 +63,25 @@ export const getOrderById = asyncHandler(async (req, res) => {
 		throw new Error('Order not found')
 	}
 })
+
+// Update Order to paid
+// GET /api/orders/:id/pay
+// Private
+
+export const updateOrderToPaid = asyncHandler(async (req, res) => {
+	const order = await Orders.findByPk(req.params.id)
+
+	if (order && (req.user.isAdmin || order.user.id === req.user.id)) {
+		order.isPaid = true
+		order.paidAt = Date.now()
+		order.paypalId = req.body.id
+		order.paymentStatus = req.body.status
+		order.paypal_email = req.body.payer.email_address
+
+		const updatedOrder = await order.save()
+		res.json(updatedOrder)
+	} else {
+		res.status(404)
+		throw new Error('Order not found')
+	}
+})
