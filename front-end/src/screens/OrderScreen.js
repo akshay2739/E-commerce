@@ -74,11 +74,17 @@ const OrderScreen = ({ match }) => {
 								<strong>Email : </strong>
 								{order.user.email}
 							</p>
-							<p>
-								<strong>Address : </strong>
-								{order.address} , {order.city} ,{order.postalCode} ,{' '}
-								{order.country}
-							</p>
+							{order.orderType === 'takeAway' ? (
+								<p>
+									<strong>Take away</strong>
+								</p>
+							) : (
+								<p>
+									<strong>Address : </strong>
+									{order.address} , {order.city} ,{order.postalCode} ,{' '}
+									{order.country}
+								</p>
+							)}
 							{order.isDelivered ? (
 								<Message variant='success'>
 									Delivered on {order.deliverdAt}

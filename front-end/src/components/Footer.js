@@ -7,11 +7,12 @@ import Link from '@material-ui/core/Link'
 
 function Copyright() {
 	return (
-		<Typography variant='body2' color='textSecondary'>
-			{'Copyright © '}
+		<Typography variant='body2' color='white'>
+			{'Copyright ©  '}
 			<Link color='inherit' href='#'>
-				Your Website
-			</Link>{' '}
+				My-Shop
+			</Link>
+			{'  '}
 			{new Date().getFullYear()}
 			{'.'}
 		</Typography>

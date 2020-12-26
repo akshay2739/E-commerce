@@ -25,6 +25,7 @@ const ShippingScreen = ({ history }) => {
 	}
 
 	const submitAddressHandler = (e) => {
+		e.preventDefault()
 		dispatch(saveOrderType('homeDelivery'))
 		dispatch(saveShippingAddress({ address, city, postalCode, country }))
 		history.push('/payment')
@@ -45,6 +46,7 @@ const ShippingScreen = ({ history }) => {
 							id='takeAway'
 							name='paymentMethod'
 							value='takeAway'
+							checked={orderType === 'takeAway'}
 							onChange={(e) => setOrderType(e.target.value)}
 						></Form.Check>
 

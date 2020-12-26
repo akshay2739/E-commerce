@@ -8,7 +8,12 @@ import {
 import { CART_CLEAR_ITEMS } from '../constant/cart.constant'
 
 export const cartReducer = (
-	state = { cartItems: [], shippingAddress: {}, paymentMethod: '' },
+	state = {
+		cartItems: [],
+		shippingAddress: {},
+		paymentMethod: '',
+		orderType: '',
+	},
 	action
 ) => {
 	switch (action.type) {

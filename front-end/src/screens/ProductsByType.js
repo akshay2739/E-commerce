@@ -22,7 +22,7 @@ const ProductByType = ({ match }) => {
 
 	return (
 		<Container>
-			<h1>Latest Products</h1>
+			<h1>{match.params.type.toUpperCase()}</h1>
 			{loading ? (
 				<Loader />
 			) : error ? (

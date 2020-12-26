@@ -45,6 +45,7 @@ export const saveOrderType = (data) => async (dispatch) => {
 		type: SAVE_ORDER_TYPE,
 		payload: data,
 	})
+	localStorage.setItem('orderType', JSON.stringify(data))
 }
 
 export const saveShippingAddress = (data) => async (dispatch) => {

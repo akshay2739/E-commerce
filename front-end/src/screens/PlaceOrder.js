@@ -73,11 +73,15 @@ const PlaceOrder = ({ history }) => {
 					<ListGroup variant='flush'>
 						<ListGroup.Item>
 							<h2>Shipping</h2>
-							<p>
-								<strong>Address : </strong>
-								{cart.shippingAddress.address} , {cart.shippingAddress.city} ,
-								{cart.shippingAddress.postalCode} , {cart.country}
-							</p>
+							{cart.orderType === 'takeAway' ? (
+								<p>Take away</p>
+							) : (
+								<p>
+									<strong>Address : </strong>
+									{cart.shippingAddress.address} , {cart.shippingAddress.city} ,
+									{cart.shippingAddress.postalCode} , {cart.country}
+								</p>
+							)}
 						</ListGroup.Item>
 
 						<ListGroup.Item>
