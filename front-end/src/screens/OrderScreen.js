@@ -173,22 +173,25 @@ const OrderScreen = ({ match }) => {
 							<ListGroup.Item>
 								<Row>
 									<Col>Total Price</Col>
-									<Col>$ {order.totalPrice}</Col>
+									<Col>
+										<strong>$ {order.totalPrice}</strong>
+									</Col>
 								</Row>
-								{!order.isPaid && (
-									<ListGroup.Item>
-										{loadingPay && <Loader />}
-										{!sdkready ? (
-											<Loader />
-										) : (
-											<PayPalButton
-												amount={order.totalPrice}
-												onSuccess={successPaymentHandler}
-											/>
-										)}
-									</ListGroup.Item>
-								)}
 							</ListGroup.Item>
+
+							{!order.isPaid && (
+								<ListGroup.Item>
+									{loadingPay && <Loader />}
+									{!sdkready ? (
+										<Loader />
+									) : (
+										<PayPalButton
+											amount={order.totalPrice}
+											onSuccess={successPaymentHandler}
+										/>
+									)}
+								</ListGroup.Item>
+							)}
 						</ListGroup>
 					</Card>
 				</Col>
