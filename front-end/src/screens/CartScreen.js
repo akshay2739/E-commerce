@@ -60,17 +60,17 @@ const CartScreen = ({ match, location, history }) => {
 										<Col md={2} xs={4} classsName='my-auto'>
 											<Image src={item.image} alt={item.name} fluid rounded />
 										</Col>
-										<Col md={2} xs={8}>
+										<Col md={3} xs={8}>
 											<Link to={`/product/${item.id}`}>{item.name}</Link>
 										</Col>
 										<Col md={2} xs={4}>
-											Size : L
+											Size : <strong>L</strong>
+										</Col>
+										<Col md={1} xs={3}>
+											<strong>{item.quantity} </strong> x
 										</Col>
 										<Col md={2} xs={3}>
-											Qty : {item.quantity}
-										</Col>
-										<Col md={2} xs={3}>
-											$ {item.price}
+											$ <strong>{item.price}</strong>
 										</Col>
 										<Col md={2} xs={2}>
 											<Button
@@ -91,16 +91,26 @@ const CartScreen = ({ match, location, history }) => {
 					<Card>
 						<ListGroup variant='flush'>
 							<ListGroup.Item>
-								<h2>
-									Subtotal (
-									{cartItems.reduce((acc, item) => acc + item.quantity, 0)})
-									items
-								</h2>
-								$
-								{cartItems
-									.reduce((acc, item) => acc + item.quantity * item.price, 0)
-									.toFixed(2)}
+								<h2>Subtotal</h2>
 							</ListGroup.Item>
+
+							<ListGroup.Item>
+								items :{' '}
+								<strong>
+									{' '}
+									{cartItems.reduce((acc, item) => acc + item.quantity, 0)}
+								</strong>
+							</ListGroup.Item>
+
+							<ListGroup.Item>
+								total : $
+								<strong>
+									{cartItems
+										.reduce((acc, item) => acc + item.quantity * item.price, 0)
+										.toFixed(2)}
+								</strong>
+							</ListGroup.Item>
+
 							<ListGroup.Item>
 								<Button
 									type='buttom'

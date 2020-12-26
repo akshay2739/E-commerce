@@ -9,7 +9,7 @@ function Copyright() {
 	return (
 		<Typography variant='body2' color='textSecondary'>
 			{'Copyright © '}
-			<Link color='inherit' href='https://material-ui.com/'>
+			<Link color='inherit' href='#'>
 				Your Website
 			</Link>{' '}
 			{new Date().getFullYear()}
@@ -27,10 +27,8 @@ const useStyles = makeStyles((theme) => ({
 		padding: theme.spacing(3, 2),
 		marginTop: 'auto',
 		textAlign: 'center',
-		backgroundColor:
-			theme.palette.type === 'light'
-				? theme.palette.grey[200]
-				: theme.palette.grey[800],
+		color: 'white',
+		backgroundColor: ' #4582ec',
 	},
 }))
 
@@ -39,7 +37,7 @@ const Footer = () => {
 
 	return (
 		<div className={classes.root}>
-			<CssBaseline />
+			{/* <CssBaseline /> */}
 			<footer className={classes.footer}>
 				<Container maxWidth='sm'>
 					<Typography variant='body1'>My-Shop</Typography>

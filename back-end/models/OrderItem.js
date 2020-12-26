@@ -6,10 +6,11 @@ const { DataTypes } = require('sequelize')
 
 const OrderItem = sequelize.define('orderItem', {
 	id: {
-		type: DataTypes.INTEGER,
-		autoIncrement: true,
-		allowNull: false,
+		type: DataTypes.UUID,
+		defaultValue: DataTypes.UUIDV1,
 		primaryKey: true,
+		allowNull: false,
+		unique: true,
 	},
 	quantity: {
 		type: DataTypes.INTEGER,

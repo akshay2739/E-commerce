@@ -16,10 +16,11 @@ export const addOrderItems = asyncHandler(async (req, res) => {
 		paymentMethod,
 		itemsPrice,
 		taxPrice,
+		orderType,
 		shippingPrice,
 		totalPrice,
 	} = req.body
-
+	console.log(req.body.orderType)
 	if (cartItems && cartItems.length === 0) {
 		res.status(400)
 		throw new Error('No Order Items')
@@ -34,6 +35,7 @@ export const addOrderItems = asyncHandler(async (req, res) => {
 			taxPrice,
 			shippingPrice,
 			totalPrice,
+			orderType,
 		})
 
 		cartItems.map(async (item) => {
@@ -84,4 +86,13 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
 		res.status(404)
 		throw new Error('Order not found')
 	}
+})
+
+// Get logged in users orders
+// GET /api/orders/myorders
+// Private
+
+export const getMyOrders = asyncHandler(async (req, res) => {
+	const orders = await req.user.getOrders()
+	res.json(orders)
 })

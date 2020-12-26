@@ -71,9 +71,11 @@ const ProductScreen = ({ history, match }) => {
 							<ListGroup.Item>
 								<h3>{product.name}</h3>
 							</ListGroup.Item>
-							<ListGroup.Item>Price : $ {product.price}</ListGroup.Item>
 							<ListGroup.Item>
-								Description : {product.description}
+								Price : <strong>$ {product.price}</strong>
+							</ListGroup.Item>
+							<ListGroup.Item>
+								Description : <strong> {product.description}</strong>
 							</ListGroup.Item>
 						</ListGroup>
 					</Col>
@@ -84,7 +86,7 @@ const ProductScreen = ({ history, match }) => {
 									<Row>
 										<Col>Price :</Col>
 										<Col>
-											<strong>{product.price}</strong>
+											<strong>$ {product.price}</strong>
 										</Col>
 									</Row>
 								</ListGroup.Item>
@@ -105,11 +107,11 @@ const ProductScreen = ({ history, match }) => {
 											<Col className='mt-1'>Quantity :</Col>
 											<Col>
 												<Button onClick={removeQuantity} size='sm'>
-													-
+													<i class='fas fa-minus'></i>
 												</Button>
 												<span style={{ margin: 10 }}>{quantity}</span>
 												<Button onClick={addQuantity} size='sm'>
-													+
+													<i class='fas fa-plus'></i>
 												</Button>
 											</Col>
 										</Row>

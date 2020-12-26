@@ -1,4 +1,8 @@
 import {
+	LIST_MY_ORDERS_FAILURE,
+	LIST_MY_ORDERS_REQUEST,
+	LIST_MY_ORDERS_RESET,
+	LIST_MY_ORDERS_SUCCESS,
 	ORDER_CREATE_FAILURE,
 	ORDER_CREATE_REQUEST,
 	ORDER_CREATE_SUCCESS,
@@ -90,6 +94,40 @@ export const orderPayReducer = (state = {}, action) => {
 
 		case ORDER_PAY_RESET:
 			return {}
+
+		default:
+			return {
+				...state,
+			}
+	}
+}
+
+export const myordersListReducer = (state = { orders: [] }, action) => {
+	switch (action.type) {
+		case LIST_MY_ORDERS_REQUEST:
+			return {
+				...state,
+				loading: true,
+			}
+
+		case LIST_MY_ORDERS_SUCCESS:
+			return {
+				...state,
+				loading: false,
+				orders: action.payload,
+			}
+
+		case LIST_MY_ORDERS_FAILURE:
+			return {
+				...state,
+				loading: false,
+				error: action.payload,
+			}
+
+		case LIST_MY_ORDERS_RESET:
+			return {
+				orders: [],
+			}
 
 		default:
 			return {

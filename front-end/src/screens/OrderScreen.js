@@ -36,7 +36,7 @@ const OrderScreen = ({ match }) => {
 			document.body.appendChild(script)
 		}
 
-		if (!order || order.id != orderId || successPay) {
+		if (!order || order.id !== orderId || successPay) {
 			dispatch({ type: ORDER_PAY_RESET })
 			dispatch(getOrderDetails(orderId))
 		} else if (!order.isPaid) {
@@ -109,7 +109,7 @@ const OrderScreen = ({ match }) => {
 								<ListGroup variant='flush'>
 									{order.products.map((item, index) => (
 										<ListGroup.Item key={index}>
-											<Row className='align-items-center text-center'>
+											<Row className='align-items-center'>
 												<Col md={2} xs={4}>
 													<Image
 														src={item.image}
@@ -119,7 +119,7 @@ const OrderScreen = ({ match }) => {
 													/>
 												</Col>
 
-												<Col xs={6}>
+												<Col xs={8}>
 													<Link to={`product/${item.id}`}>{item.name}</Link>
 												</Col>
 

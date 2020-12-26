@@ -20,20 +20,22 @@ const App = () => {
 		<>
 			<BrowserRouter>
 				<Navbar />
-				<Container>
-					<Switch>
-						<Route exact path='/' component={HomeScreen} />
-						<Route path='/product/:id' component={ProductScreen} />
-						<Route path='/cart/:id?' component={CartScreen} />
-						<Route path='/login' component={LoginScreen} />
-						<Route path='/register' component={RegisterScreen} />
-						<Route path='/profile' component={ProfileScreen} />
-						<Route path='/shipping' component={ShippingScreen} />
-						<Route path='/payment' component={PaymentScreen} />
-						<Route path='/placeorder' component={PlaceOrder} />
-						<Route path='/order/:id' component={OrderScreen} />
-					</Switch>
-				</Container>
+				<main className='py-3'>
+					<Container>
+						<Switch>
+							<Route exact path='/' component={HomeScreen} />
+							<Route path='/product/:id' component={ProductScreen} />
+							<Route path='/cart/:id?' component={CartScreen} />
+							<Route path='/login' component={LoginScreen} />
+							<Route path='/register' component={RegisterScreen} />
+							<Route path='/profile' component={ProfileScreen} />
+							<Route path='/shipping' component={ShippingScreen} />
+							<Route path='/payment' component={PaymentScreen} />
+							<Route path='/placeorder' component={PlaceOrder} />
+							<Route path='/order/:id' component={OrderScreen} />
+						</Switch>
+					</Container>
+				</main>
 				<Footer />
 			</BrowserRouter>
 		</>

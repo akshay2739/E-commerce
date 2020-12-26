@@ -1,4 +1,5 @@
 import Axios from 'axios'
+import { LIST_MY_ORDERS_RESET } from '../constant/orderConstant.js'
 import {
 	USER_LOGIN_FAILURE,
 	USER_LOGIN_REQUEST,
@@ -13,6 +14,7 @@ import {
 	USER_UPDATE_PROFILE_REQUEST,
 	USER_UPDATE_PROFILE_SUCCESS,
 	USER_LOGOUT,
+	USER_DETAILS_RESET,
 } from '../constant/user.constant.js'
 
 export const login = (email, password) => async (dispatch) => {
@@ -55,6 +57,12 @@ export const logout = () => async (dispatch) => {
 
 	dispatch({
 		type: USER_LOGOUT,
+	})
+	dispatch({
+		type: USER_DETAILS_RESET,
+	})
+	dispatch({
+		type: LIST_MY_ORDERS_RESET,
 	})
 	document.location.href = '/login'
 }

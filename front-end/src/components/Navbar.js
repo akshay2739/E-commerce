@@ -19,44 +19,65 @@ const MyNavbar = () => {
 			style={{ backgroundColor: '', position: 'sticky' }}
 			collapseOnSelect
 			expand='lg'
-			bg='dark'
-			variant='dark'
 			fixed='top'
+			className='navbar navbar-expand-lg navbar-dark bg-primary'
 		>
 			<Container>
 				<Navbar.Brand>
 					<Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
-						My-Shop
+						MY-SHOP
 					</Link>
 				</Navbar.Brand>
 				<Navbar.Toggle aria-controls='responsive-navbar-nav' />
 				<Navbar.Collapse id='responsive-navbar-nav'>
+					<Nav>
+						<LinkContainer
+							to='/products/men'
+							style={{ textDecoration: 'none', color: 'white', marginTop: 1 }}
+						>
+							<Nav.Link eventKey={2}>MEN</Nav.Link>
+						</LinkContainer>
+
+						<LinkContainer
+							to='/products/women'
+							style={{ textDecoration: 'none', color: 'white', marginTop: 1 }}
+						>
+							<Nav.Link eventKey={2}>WOMEN</Nav.Link>
+						</LinkContainer>
+
+						<LinkContainer
+							to='/products/kids'
+							style={{ textDecoration: 'none', color: 'white', marginTop: 1 }}
+						>
+							<Nav.Link eventKey={2}>KIDS</Nav.Link>
+						</LinkContainer>
+					</Nav>
+
 					<Nav className='ml-auto'>
 						<LinkContainer
-							to='/search'
-							style={{ textDecoration: 'none', color: 'white' }}
-						>
-							<Nav.Link eventKey={2}>Search</Nav.Link>
-						</LinkContainer>
-
-						<LinkContainer
 							to='/cart'
-							style={{ textDecoration: 'none', color: 'white' }}
+							style={{ textDecoration: 'none', color: 'white', marginTop: 1 }}
 						>
-							<Nav.Link eventKey={2}>Cart</Nav.Link>
-						</LinkContainer>
-
-						<LinkContainer
-							to='/wishlist'
-							style={{ textDecoration: 'none', color: 'white' }}
-						>
-							<Nav.Link eventKey={2}>Wishlist</Nav.Link>
+							<Nav.Link eventKey={2}>
+								<i className='fas fa-shopping-cart'></i> Cart
+							</Nav.Link>
 						</LinkContainer>
 
 						{userInfo ? (
 							<NavDropdown
-								title={userInfo.name}
-								style={{ textDecoration: 'none', color: 'white' }}
+								title={
+									<span
+										style={{
+											textDecoration: 'none',
+											color: 'white',
+											marginTop: 1,
+										}}
+									>
+										<i className='fas fa-user'></i>
+										{`  `}
+										{userInfo.name}
+									</span>
+								}
 							>
 								<LinkContainer to='/profile'>
 									<NavDropdown.Item>Profile</NavDropdown.Item>
@@ -68,9 +89,11 @@ const MyNavbar = () => {
 						) : (
 							<LinkContainer
 								to='/login'
-								style={{ textDecoration: 'none', color: 'white' }}
+								style={{ textDecoration: 'none', color: 'white', marginTop: 1 }}
 							>
-								<Nav.Link eventKey={2}>Login</Nav.Link>
+								<Nav.Link eventKey={2}>
+									<i className='fas fa-user'></i> Login
+								</Nav.Link>
 							</LinkContainer>
 						)}
 					</Nav>

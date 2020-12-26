@@ -32,6 +32,7 @@ const PlaceOrder = ({ history }) => {
 
 	const {
 		cartItems,
+		orderType,
 		shippingAddress,
 		paymentMethod,
 		itemsPrice,
@@ -54,6 +55,7 @@ const PlaceOrder = ({ history }) => {
 		dispatch(
 			createOrder({
 				cartItems,
+				orderType,
 				shippingAddress,
 				paymentMethod,
 				itemsPrice,
@@ -95,7 +97,7 @@ const PlaceOrder = ({ history }) => {
 									{cart.cartItems.map((item, index) => (
 										<ListGroup.Item key={index}>
 											<Row className='align-items-center'>
-												<Col md={2} xs={2}>
+												<Col md={2} xs={4}>
 													<Image
 														src={item.image}
 														alt={item.name}
@@ -104,13 +106,13 @@ const PlaceOrder = ({ history }) => {
 													/>
 												</Col>
 
-												<Col md={6} xs={6}>
+												<Col md={6} xs={8}>
 													<Link to={`product/${item.id}`}>{item.name}</Link>
 												</Col>
 
-												<Col md={4} xs={4}>
+												<Col md={4} xs={12}>
 													{item.quantity} X $ {item.price} = ${' '}
-													{item.quantity * item.price}
+													<strong> {item.quantity * item.price}</strong>
 												</Col>
 											</Row>
 										</ListGroup.Item>
@@ -152,7 +154,9 @@ const PlaceOrder = ({ history }) => {
 							<ListGroup.Item>
 								<Row>
 									<Col>Total Price</Col>
-									<Col>$ {cart.totalPrice}</Col>
+									<Col>
+										$ <strong> {cart.totalPrice}</strong>
+									</Col>
 								</Row>
 							</ListGroup.Item>
 
