@@ -14,6 +14,7 @@ import PaymentScreen from './screens/PaymentScreen'
 import PlaceOrder from './screens/PlaceOrder'
 import { Container } from 'react-bootstrap'
 import OrderScreen from './screens/OrderScreen'
+import ProductByType from './screens/ProductsByType'
 
 const App = () => {
 	return (
@@ -25,6 +26,7 @@ const App = () => {
 						<Switch>
 							<Route exact path='/' component={HomeScreen} />
 							<Route path='/product/:id' component={ProductScreen} />
+							<Route path='/products/:type' component={ProductByType} />
 							<Route path='/cart/:id?' component={CartScreen} />
 							<Route path='/login' component={LoginScreen} />
 							<Route path='/register' component={RegisterScreen} />

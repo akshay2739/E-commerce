@@ -3,6 +3,9 @@ import {
 	PRODUCT_LIST_FAILURE,
 	PRODUCT_LIST_REQUEST,
 	PRODUCT_LIST_SUCCESS,
+	PRODUCT_LIST_BYTYPE_FAILURE,
+	PRODUCT_LIST_BYTYPE_REQUEST,
+	PRODUCT_LIST_BYTYPE_SUCCESS,
 	PRODUCT_DETAIL_FAILURE,
 	PRODUCT_DETAIL_REQUEST,
 	PRODUCT_DETAIL_SUCCESS,
@@ -15,6 +18,28 @@ export const listProducts = () => async (dispatch) => {
 		})
 
 		const { data } = await Axios.get('/api/products')
+		dispatch({
+			type: PRODUCT_LIST_SUCCESS,
+			payload: data,
+		})
+	} catch (error) {
+		dispatch({
+			type: PRODUCT_LIST_FAILURE,
+			payload:
+				error.response && error.response.data.message
+					? error.response.data.message
+					: error.message,
+		})
+	}
+}
+
+export const listProductsByType = (type) => async (dispatch) => {
+	try {
+		dispatch({
+			type: PRODUCT_LIST_REQUEST,
+		})
+
+		const { data } = await Axios.get(`/api/products/products/${type}`)
 		dispatch({
 			type: PRODUCT_LIST_SUCCESS,
 			payload: data,

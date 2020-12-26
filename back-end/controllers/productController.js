@@ -24,3 +24,14 @@ export const getProductById = asyncHandler(async (req, res) => {
 		throw new Error('Product not found')
 	}
 })
+
+export const getProductsByType = asyncHandler(async (req, res) => {
+	const type = req.params.type
+	const products = await Products.findAll({ where: { category: type } })
+	if (products) {
+		res.json(products)
+	} else {
+		res.status(404)
+		throw new Error('Product not found')
+	}
+})

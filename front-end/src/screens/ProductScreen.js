@@ -8,6 +8,7 @@ import {
 	Image,
 	ListGroup,
 	Row,
+	Form,
 } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
@@ -77,6 +78,11 @@ const ProductScreen = ({ history, match }) => {
 							<ListGroup.Item>
 								Description : <strong> {product.description}</strong>
 							</ListGroup.Item>
+							<ListGroup.Item>
+								<strong className='text-danger'>
+									No Refunds. Only Exchange within 15 days.
+								</strong>
+							</ListGroup.Item>
 						</ListGroup>
 					</Col>
 					<Col md={4}>
@@ -92,12 +98,36 @@ const ProductScreen = ({ history, match }) => {
 								</ListGroup.Item>
 
 								<ListGroup.Item>
+									<Row className='align-items-center'>
+										<Col>
+											<Form.Label>Size</Form.Label>
+										</Col>
+										<Col>
+											<Form.Group
+												controlId='exampleForm.ControlSelect1'
+												className='my-auto'
+											>
+												<Form.Control as='select' size='sm'>
+													<option className='text-center'>S</option>
+													<option>M</option>
+													<option>L</option>
+													<option>XL</option>
+													<option>XXL</option>
+												</Form.Control>
+											</Form.Group>
+										</Col>
+									</Row>
+								</ListGroup.Item>
+
+								<ListGroup.Item>
 									<Row>
 										<Col>Status :</Col>
 										<Col>
-											{product.countInStock_S > 0
-												? 'In stock'
-												: 'Out of  stock'}
+											{product.countInStock_S > 0 ? (
+												<strong className='text-success'>In stock</strong>
+											) : (
+												<strong className='text-danger'>Out of stock</strong>
+											)}
 										</Col>
 									</Row>
 								</ListGroup.Item>
