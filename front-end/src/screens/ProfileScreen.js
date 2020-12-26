@@ -135,11 +135,11 @@ const ProfileScreen = ({ location, history }) => {
 								{orders.map((order) => (
 									<tr key={order.id}>
 										<td>{order.id}</td>
-										<td>{order.createdAt}</td>
+										<td>{order.createdAt.substring(0, 10)}</td>
 										<td>{order.totalPrice}</td>
 										<td>
 											{order.isPaid ? (
-												order.paidAt
+												order.paidAt.substring(0, 10)
 											) : (
 												<i
 													className='fas fa-times'
@@ -149,7 +149,7 @@ const ProfileScreen = ({ location, history }) => {
 										</td>
 										<td>
 											{order.isDelivered ? (
-												order.DeliveredAt
+												order.DeliveredAt.substring(0, 10)
 											) : (
 												<i
 													className='fas fa-times'
