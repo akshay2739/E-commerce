@@ -27,10 +27,10 @@ const User = sequelize.define(
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		isAdmin: {
+		role: {
 			type: DataTypes.STRING,
 			allowNull: false,
-			defaultValue: false,
+			defaultValue: 'users',
 		},
 	},
 	{

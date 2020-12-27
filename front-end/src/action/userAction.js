@@ -15,6 +15,9 @@ import {
 	USER_UPDATE_PROFILE_SUCCESS,
 	USER_LOGOUT,
 	USER_DETAILS_RESET,
+	USER_LIST_SUCCESS,
+	USER_LIST_FAILURE,
+	USER_LIST_REQUEST,
 } from '../constant/user.constant.js'
 
 export const login = (email, password) => async (dispatch) => {
@@ -163,6 +166,35 @@ export const updateUserDetails = (user) => async (dispatch, getState) => {
 	} catch (error) {
 		dispatch({
 			type: USER_UPDATE_PROFILE_FAILURE,
+			payload:
+				error.response && error.response.data.message
+					? error.response.data.message
+					: error.message,
+		})
+	}
+}
+
+export const listUsers = () => async (dispatch, getState) => {
+	try {
+		dispatch({ type: USER_LIST_REQUEST })
+
+		const userLogin = getState().userLoginReducer.userInfo
+
+		const config = {
+			headers: {
+				Authorization: `Bearer ${userLogin.token}`,
+			},
+		}
+
+		const { data } = await Axios.get(`/api/users`, config)
+
+		dispatch({
+			type: USER_LIST_SUCCESS,
+			payload: data,
+		})
+	} catch (error) {
+		dispatch({
+			type: USER_LIST_FAILURE,
 			payload:
 				error.response && error.response.data.message
 					? error.response.data.message

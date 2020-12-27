@@ -18,7 +18,7 @@ export const authUser = asyncHandler(async (req, res) => {
 			id: user.id,
 			name: user.name,
 			email: user.email,
-			isAdmin: user.isAdmin,
+			role: user.role,
 			token: generateToken(user.id),
 		})
 	} else {
@@ -55,7 +55,7 @@ export const createUser = asyncHandler(async (req, res) => {
 			id: user.id,
 			name: user.name,
 			email: user.email,
-			isAdmin: user.isAdmin,
+			role: user.role,
 			token: generateToken(user.id),
 		})
 	} else {
@@ -75,7 +75,7 @@ export const getUserProfile = asyncHandler(async (req, res) => {
 			id: user.id,
 			name: user.name,
 			email: user.email,
-			isAdmin: user.isAdmin,
+			role: user.role,
 			token: generateToken(user.id),
 		})
 	} else {
@@ -110,9 +110,24 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
 			id: updatedUser.id,
 			name: updatedUser.name,
 			email: updatedUser.email,
-			isAdmin: updatedUser.isAdmin,
+			role: updatedUser.role,
 			token: generateToken(updatedUser.id),
 		})
+	} else {
+		res.status(404)
+		throw new Error('No user found')
+	}
+})
+
+// Fetch all users
+// GET /api/user
+// Private
+
+export const getAllUsers = asyncHandler(async (req, res) => {
+	const users = await User.findAll()
+
+	if (users) {
+		res.json(users)
 	} else {
 		res.status(404)
 		throw new Error('No user found')

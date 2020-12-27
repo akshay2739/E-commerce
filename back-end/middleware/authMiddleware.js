@@ -34,3 +34,12 @@ const protect = expressAsyncHandler(async (req, res, next) => {
 })
 
 export default protect
+
+export const isAdmin = (req, res, next) => {
+	if (req.user && req.user.role === 'my-shop-admin') {
+		next()
+	} else {
+		res.status(401)
+		throw new Error('Not authorised as admin')
+	}
+}

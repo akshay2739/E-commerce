@@ -15,6 +15,7 @@ import PlaceOrder from './screens/PlaceOrder'
 import { Container } from 'react-bootstrap'
 import OrderScreen from './screens/OrderScreen'
 import ProductByType from './screens/ProductsByType'
+import UserListScreen from './screens/UserListScreen'
 
 const App = () => {
 	return (
@@ -35,6 +36,7 @@ const App = () => {
 							<Route path='/payment' component={PaymentScreen} />
 							<Route path='/placeorder' component={PlaceOrder} />
 							<Route path='/order/:id' component={OrderScreen} />
+							<Route path='/admin/userlist' component={UserListScreen} />
 						</Switch>
 					</Container>
 				</main>
