@@ -4,21 +4,32 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listUsers } from '../action/userAction'
+import { deleteUser, listUsers } from '../action/userAction'
 
-const UserListScreen = () => {
+const UserListScreen = ({ history }) => {
 	const dispatch = useDispatch()
 
+	const usersLogin = useSelector((state) => state.userLoginReducer)
+	const { userInfo } = usersLogin
+
 	const usersList = useSelector((state) => state.userList)
-	console.log(usersList)
 	const { loading, users, error } = usersList
 
+	const usersDelete = useSelector((state) => state.userDelete)
+	const { success: successDelete } = usersDelete
+
 	useEffect(() => {
-		dispatch(listUsers())
-	}, [dispatch])
+		if (userInfo && userInfo.role === 'my-shop-admin') {
+			dispatch(listUsers())
+		} else {
+			history.push('/login')
+		}
+	}, [dispatch, history, userInfo, successDelete])
 
 	const deleteHandler = (id) => {
-		console.log('delete')
+		if (window.confirm('Are you sure?')) {
+			dispatch(deleteUser(id))
+		}
 	}
 
 	return (
@@ -53,7 +64,7 @@ const UserListScreen = () => {
 									)}
 								</td>
 								<td>
-									<LinkContainer to={`/user/${user.id}/edit`}>
+									<LinkContainer to={`/admin/user/${user.id}/edit`}>
 										<Button variant='light' className='btn-sm'>
 											<i className='fas fa-edit'></i>
 										</Button>
@@ -61,7 +72,7 @@ const UserListScreen = () => {
 									<Button
 										variant='danger'
 										className='btn-sm'
-										onCLick={() => deleteHandler(user.id)}
+										onClick={() => deleteHandler(user.id)}
 									>
 										<i className='fas fa-trash'></i>
 									</Button>

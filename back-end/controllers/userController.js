@@ -121,13 +121,71 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
 
 // Fetch all users
 // GET /api/user
-// Private
+// Private admin
 
 export const getAllUsers = asyncHandler(async (req, res) => {
 	const users = await User.findAll()
 
 	if (users) {
 		res.json(users)
+	} else {
+		res.status(404)
+		throw new Error('No user found')
+	}
+})
+
+// Delete  a user
+// DELETE /api/users/:id
+// Private admin
+
+export const deleteUser = asyncHandler(async (req, res) => {
+	const user = await User.findByPk(req.params.id)
+
+	if (user) {
+		await user.destroy()
+		res.json({ message: 'user removed' })
+	} else {
+		res.status(404)
+		throw new Error('No user found')
+	}
+})
+
+// Get user by id
+// FET /api/users/:id
+// Private admin
+
+export const getUserById = asyncHandler(async (req, res) => {
+	const user = await User.findByPk(req.params.id, {
+		attributes: { exclude: ['password'] },
+	})
+
+	if (user) {
+		res.json(user)
+	} else {
+		res.status(404)
+		throw new Error('No user found')
+	}
+})
+
+// Update user
+// POST /api/user/:id
+// Private Admin
+
+export const updateUser = asyncHandler(async (req, res) => {
+	const user = await User.findByPk(req.params.id)
+
+	if (user) {
+		user.name = req.body.name || user.name
+		user.email = req.body.email || user.email
+		user.role = req.body.role || user.role
+
+		const updatedUser = await user.save()
+		res.json({
+			id: updatedUser.id,
+			name: updatedUser.name,
+			email: updatedUser.email,
+			role: updatedUser.role,
+		})
 	} else {
 		res.status(404)
 		throw new Error('No user found')

@@ -2,8 +2,11 @@ import express from 'express'
 import {
 	authUser,
 	createUser,
+	deleteUser,
 	getAllUsers,
+	getUserById,
 	getUserProfile,
+	updateUser,
 	updateUserProfile,
 } from '../controllers/userController.js'
 import protect, { isAdmin } from '../middleware/authMiddleware.js'
@@ -19,5 +22,11 @@ userRoutes.get('/profile', protect, getUserProfile)
 userRoutes.put('/profile', protect, updateUserProfile)
 
 userRoutes.get('/', protect, isAdmin, getAllUsers)
+
+userRoutes.delete('/:id', protect, isAdmin, deleteUser)
+
+userRoutes.get('/:id', protect, isAdmin, getUserById)
+
+userRoutes.put('/:id', protect, isAdmin, updateUser)
 
 export default userRoutes
