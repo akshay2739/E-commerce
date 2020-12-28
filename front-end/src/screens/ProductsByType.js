@@ -10,7 +10,7 @@ import Message from '../components/Message'
 const ProductByType = ({ match }) => {
 	const dispatch = useDispatch()
 	const productList = useSelector((state) => {
-		return state.productList
+		return state.productsList
 	})
 
 	const { loading, error, products } = productList
