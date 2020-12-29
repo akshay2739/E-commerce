@@ -76,6 +76,20 @@ export const getProductsByType = asyncHandler(async (req, res) => {
 	}
 })
 
+// Fetch new products
+// GET /api/newproducts
+// Public
+export const getNewProducts = asyncHandler(async (req, res) => {
+	const products = await Products.findAll({ limit: 5 })
+	console.log(products)
+	if (products) {
+		res.json(products)
+	} else {
+		res.status(404)
+		throw new Error('Product not found')
+	}
+})
+
 // Delete a  product
 // DELETE /api/products/:id
 // Private Admin

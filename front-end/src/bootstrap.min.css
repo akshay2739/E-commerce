@@ -5990,7 +5990,7 @@ a.close.disabled {
 .carousel-item-next,
 .carousel-item-prev,
 .carousel-item.active {
-	display: block;
+	display: flex;
 }
 .active.carousel-item-right,
 .carousel-item-next:not(.carousel-item-left) {

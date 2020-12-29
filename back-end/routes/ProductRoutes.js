@@ -4,6 +4,7 @@ import colors from 'colors'
 import {
 	createProduct,
 	deleteProductById,
+	getNewProducts,
 	getProductById,
 	getProducts,
 	getProductsByType,
@@ -20,9 +21,12 @@ router.post('/', protect, isAdmin, createProduct)
 
 router.get('/products/:type', getProductsByType)
 
+router.get('/newproducts', getNewProducts)
+
 router.get('/:id', getProductById)
 
 router.delete('/:id', protect, isAdmin, deleteProductById)
 
 router.put('/:id', protect, isAdmin, UpdateProduct)
+
 export default router
