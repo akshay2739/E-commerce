@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../action/userAction'
+import SearchBox from './SearchBox'
+import { Route } from 'react-router-dom'
 
 const MyNavbar = () => {
 	const dispatch = useDispatch()
@@ -54,6 +56,7 @@ const MyNavbar = () => {
 					</Nav>
 
 					<Nav className='ml-auto'>
+						<Route render={({ history }) => <SearchBox history={history} />} />
 						<LinkContainer
 							to='/cart'
 							style={{ textDecoration: 'none', color: 'white', marginTop: 1 }}

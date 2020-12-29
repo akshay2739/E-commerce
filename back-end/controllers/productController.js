@@ -2,12 +2,27 @@ import asyncHandler from 'express-async-handler'
 import protect from '../middleware/authMiddleware.js'
 import Products from '../models/ProductModel.js'
 import colors from 'colors'
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
+const { Op } = require('sequelize')
 // Fetch all products
 // GET /api/products
 // Public
 
 export const getProducts = asyncHandler(async (req, res) => {
-	const products = await Products.findAll()
+	const options = req.query.keyword
+		? {
+				where: {
+					[Op.or]: [
+						{
+							name: { [Op.like]: '%' + req.query.keyword + '%' },
+						},
+					],
+				},
+		  }
+		: {}
+
+	const products = await Products.findAll(options)
 	res.json(products)
 })
 
