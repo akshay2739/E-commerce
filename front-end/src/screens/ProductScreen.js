@@ -13,7 +13,7 @@ import {
 import { Link } from 'react-router-dom'
 
 import { productDetail } from '../action/productAction'
-
+import Meta from '../components/Meta'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
@@ -54,7 +54,7 @@ const ProductScreen = ({ history, match }) => {
 	}
 
 	return (
-		<Container>
+		<>
 			<Link className='btn btn-light my-3' to='/'>
 				Go back
 			</Link>
@@ -64,6 +64,7 @@ const ProductScreen = ({ history, match }) => {
 				<Message variant='danger'>{error}</Message>
 			) : (
 				<Row>
+					<Meta title={product.name} />
 					<Col md={4}>
 						<Image src={product.image} alt={product.name} fluid rounded />
 					</Col>
@@ -163,7 +164,7 @@ const ProductScreen = ({ history, match }) => {
 					</Col>
 				</Row>
 			)}
-		</Container>
+		</>
 	)
 }
 

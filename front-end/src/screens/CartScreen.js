@@ -15,6 +15,7 @@ import {
 	removeItemFromCartAction,
 } from '../action/cartAction'
 import Message from '../components/Message'
+import Meta from '../components/Meta'
 
 const CartScreen = ({ match, location, history }) => {
 	const id = match.params.id
@@ -44,7 +45,8 @@ const CartScreen = ({ match, location, history }) => {
 	}
 
 	return (
-		<Container>
+		<>
+			<Meta title='My-Shop | Your cart' />
 			<Row className='align-items-center'>
 				<Col md={8}>
 					<h1>Shopping cart</h1>
@@ -125,7 +127,7 @@ const CartScreen = ({ match, location, history }) => {
 					</Card>
 				</Col>
 			</Row>
-		</Container>
+		</>
 	)
 }
 

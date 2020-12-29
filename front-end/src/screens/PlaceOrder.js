@@ -6,6 +6,7 @@ import CheckoutSteps from '../components/CheckoutSteps'
 import { Link } from 'react-router-dom'
 import { createOrder } from '../action/orderAction'
 import { useEffect } from 'react'
+import Meta from '../components/Meta'
 
 const PlaceOrder = ({ history }) => {
 	const cart = useSelector((state) => state.cart)
@@ -67,6 +68,7 @@ const PlaceOrder = ({ history }) => {
 	}
 	return (
 		<>
+			<Meta title='My-Shop | Place Order' />
 			<CheckoutSteps step1 step2 step3 />
 			<Row>
 				<Col md={8}>

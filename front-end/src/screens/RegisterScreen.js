@@ -6,6 +6,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
 import { register } from '../action/userAction'
+import Meta from '../components/Meta'
 
 const RegisterScreen = ({ location, history }) => {
 	const [name, setName] = useState('')
@@ -37,6 +38,7 @@ const RegisterScreen = ({ location, history }) => {
 
 	return (
 		<FormContainer>
+			<Meta title='My-Shop | Register' />
 			<h1>Sign Up</h1>
 			{error && <Message variant='danger'>{error}</Message>}
 			{message && <Message variant='danger'>{message}</Message>}

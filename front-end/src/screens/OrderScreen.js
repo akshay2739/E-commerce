@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 import Axios from 'axios'
 import { PayPalButton } from 'react-paypal-button-v2'
 import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../constant/orderConstant'
+import Meta from '../components/Meta'
 
 const OrderScreen = ({ match, history }) => {
 	const orderId = match.params.id
@@ -75,6 +76,7 @@ const OrderScreen = ({ match, history }) => {
 		<Message variant='danger'>{error}</Message>
 	) : (
 		<>
+			<Meta title='My-Shop Order' />
 			<h1>Order</h1>
 			<Row>
 				<Col md={8}>
@@ -143,7 +145,7 @@ const OrderScreen = ({ match, history }) => {
 												</Col>
 
 												<Col xs={8}>
-													<Link to={`product/${item.id}`}>{item.name}</Link>
+													<Link to={`/product/${item.id}`}>{item.name}</Link>
 												</Col>
 
 												<Col md={4} xs={12}>

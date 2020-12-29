@@ -7,6 +7,7 @@ import { listProductsByType } from '../action/productAction'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import Paginate from '../components/Paginate'
+import Meta from '../components/Meta'
 
 const ProductByType = ({ match }) => {
 	const pageNumber = match.params.pageNumber || 1
@@ -24,7 +25,8 @@ const ProductByType = ({ match }) => {
 	}, [dispatch, match, pageNumber])
 
 	return (
-		<Container>
+		<>
+			<Meta title={`My-Shop | ${match.params.type.toUpperCase()}`} />
 			<h1>{match.params.type.toUpperCase()}</h1>
 			{loading ? (
 				<Loader />
@@ -42,7 +44,7 @@ const ProductByType = ({ match }) => {
 					<Paginate page={page} pages={pages} pageType={match.params.type} />
 				</>
 			)}
-		</Container>
+		</>
 	)
 }
 
