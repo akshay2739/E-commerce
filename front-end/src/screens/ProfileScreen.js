@@ -120,7 +120,13 @@ const ProfileScreen = ({ location, history }) => {
 					) : errorOrders ? (
 						<Message variant='danger'>{errorOrders}</Message>
 					) : (
-						<Table striped bordered hover responsive className='table-sm'>
+						<Table
+							striped
+							bordered
+							hover
+							responsive
+							className='table-sm text-center'
+						>
 							<thead>
 								<tr>
 									<th>ID</th>
@@ -149,7 +155,7 @@ const ProfileScreen = ({ location, history }) => {
 										</td>
 										<td>
 											{order.isDelivered ? (
-												order.DeliveredAt.substring(0, 10)
+												order.deliveredAt.substring(0, 10)
 											) : (
 												<i
 													className='fas fa-times'

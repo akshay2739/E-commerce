@@ -4,7 +4,6 @@ import User from '../models/UserModel.js'
 
 const protect = expressAsyncHandler(async (req, res, next) => {
 	let token
-
 	if (
 		req.headers.authorization &&
 		req.headers.authorization.startsWith('Bearer')
@@ -13,7 +12,7 @@ const protect = expressAsyncHandler(async (req, res, next) => {
 			token = req.headers.authorization.split(' ')[1]
 
 			const decoded = jwt.verify(token, process.env.JWT_SECRET)
-			// console.log(decoded)
+			console.log(decoded)
 			req.user = await User.findByPk(decoded.id, {
 				attributes: { exclude: ['password'] },
 			})

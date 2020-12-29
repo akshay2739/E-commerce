@@ -58,7 +58,10 @@ export const getOrderById = asyncHandler(async (req, res) => {
 		include: [{ model: User }, { model: Products }],
 	})
 
-	if (order && (req.user.isAdmin || order.user.id === req.user.id)) {
+	if (
+		order &&
+		(req.user.role === 'my-shop-admin' || order.user.id === req.user.id)
+	) {
 		res.json(order)
 	} else {
 		res.status(404)
@@ -71,14 +74,36 @@ export const getOrderById = asyncHandler(async (req, res) => {
 // Private
 
 export const updateOrderToPaid = asyncHandler(async (req, res) => {
-	const order = await Orders.findByPk(req.params.id)
-
-	if (order && (req.user.isAdmin || order.user.id === req.user.id)) {
+	const order = await Orders.findByPk(req.params.id, {
+		include: [{ model: User }],
+	})
+	if (
+		order &&
+		(req.user.role === 'my-shop-admin' || order.user.id === req.user.id)
+	) {
 		order.isPaid = true
 		order.paidAt = Date.now()
 		order.paypalId = req.body.id
 		order.paymentStatus = req.body.status
 		order.paypal_email = req.body.payer.email_address
+
+		const updatedOrder = await order.save()
+		res.json(updatedOrder)
+	} else {
+		res.status(404)
+		throw new Error('Order not found')
+	}
+})
+
+// Update Order to Delivered
+// GET /api/orders/:id/deliver
+// Private Admin
+export const updateOrderToDelivered = asyncHandler(async (req, res) => {
+	const order = await Orders.findByPk(req.params.id)
+
+	if (order && req.user.role === 'my-shop-admin') {
+		order.isDelivered = true
+		order.deliveredAt = Date.now()
 
 		const updatedOrder = await order.save()
 		res.json(updatedOrder)
@@ -94,5 +119,16 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
 
 export const getMyOrders = asyncHandler(async (req, res) => {
 	const orders = await req.user.getOrders()
+	res.json(orders)
+})
+
+// Get All orders
+// GET /api/orders/
+// Private Admin
+
+export const getAllOrders = asyncHandler(async (req, res) => {
+	const orders = await Orders.findAll({
+		include: [{ model: User }, { model: Products }],
+	})
 	res.json(orders)
 })

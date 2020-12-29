@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import colors from 'colors'
 import path from 'path'
 import sequelize from './config/db.js'
+import morgan from 'morgan'
 
 import productRoutes from './routes/ProductRoutes.js'
 
@@ -19,6 +20,10 @@ import uploadRouter from './routes/uploadRoutes.js'
 dotenv.config()
 
 const app = express()
+
+if (process.env.NODE_ENV !== 'production') {
+	app.use(morgan('dev'))
+}
 
 app.use(express.json())
 
