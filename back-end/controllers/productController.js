@@ -10,6 +10,10 @@ const { Op } = require('sequelize')
 // Public
 
 export const getProducts = asyncHandler(async (req, res) => {
+	const pageSize = 8
+
+	const page = Number(req.query.pageNumber) || 1
+
 	const options = req.query.keyword
 		? {
 				where: {
@@ -22,8 +26,13 @@ export const getProducts = asyncHandler(async (req, res) => {
 		  }
 		: {}
 
-	const products = await Products.findAll(options)
-	res.json(products)
+	const count = await Products.count(options)
+	const products = await Products.findAll({
+		...options,
+		limit: pageSize,
+		offset: pageSize * (page - 1),
+	})
+	res.json({ products, page, pages: Math.ceil(count / pageSize) })
 })
 
 // Fetch single product

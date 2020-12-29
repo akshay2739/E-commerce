@@ -4,6 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import Paginate from '../components/Paginate'
 import {
 	createProduct,
 	deleteProduct,
@@ -12,13 +13,15 @@ import {
 import { PRODUCT_CREATE_RESET } from '../constant/product.constant'
 
 const ProductListScreen = ({ history, match }) => {
+	const pageNumber = match.params.pageNumber || 1
+
 	const dispatch = useDispatch()
 
 	const usersLogin = useSelector((state) => state.userLoginReducer)
 	const { userInfo } = usersLogin
 
 	const productsList = useSelector((state) => state.productsList)
-	const { loading, products, error } = productsList
+	const { loading, products, error, pages, page } = productsList
 
 	const productDelete = useSelector((state) => state.productDelete)
 	const {
@@ -46,7 +49,7 @@ const ProductListScreen = ({ history, match }) => {
 		if (successCreate) {
 			history.push(`/admin/product/${createdProduct.id}/edit`)
 		} else {
-			dispatch(listProducts())
+			dispatch(listProducts('', pageNumber))
 		}
 	}, [
 		dispatch,
@@ -55,6 +58,7 @@ const ProductListScreen = ({ history, match }) => {
 		successDelete,
 		successCreate,
 		createdProduct,
+		pageNumber,
 	])
 
 	const createProducthandler = () => {
@@ -88,41 +92,44 @@ const ProductListScreen = ({ history, match }) => {
 			) : error ? (
 				<Message variant='danger'>{error}</Message>
 			) : (
-				<Table striped responsive className='table-sm text-center' bordered>
-					<thead>
-						<tr>
-							<th>Id</th>
-							<th>Name</th>
-							<th>Price</th>
-							<th>Category</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						{products.map((product) => (
-							<tr key={product.id}>
-								<td>{product.id}</td>
-								<td>{product.name}</td>
-								<td>$ {product.price}</td>
-								<td>{product.category}</td>
-								<td>
-									<LinkContainer to={`/admin/product/${product.id}/edit`}>
-										<Button variant='light' className='btn-sm'>
-											<i className='fas fa-edit'></i>
-										</Button>
-									</LinkContainer>
-									<Button
-										variant='danger'
-										className='btn-sm'
-										onClick={() => deleteHandler(product.id)}
-									>
-										<i className='fas fa-trash'></i>
-									</Button>
-								</td>
+				<>
+					<Table striped responsive className='table-sm text-center' bordered>
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Name</th>
+								<th>Price</th>
+								<th>Category</th>
+								<th></th>
 							</tr>
-						))}
-					</tbody>
-				</Table>
+						</thead>
+						<tbody>
+							{products.map((product) => (
+								<tr key={product.id}>
+									<td>{product.id}</td>
+									<td>{product.name}</td>
+									<td>$ {product.price}</td>
+									<td>{product.category}</td>
+									<td>
+										<LinkContainer to={`/admin/product/${product.id}/edit`}>
+											<Button variant='light' className='btn-sm'>
+												<i className='fas fa-edit'></i>
+											</Button>
+										</LinkContainer>
+										<Button
+											variant='danger'
+											className='btn-sm'
+											onClick={() => deleteHandler(product.id)}
+										>
+											<i className='fas fa-trash'></i>
+										</Button>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</Table>
+					<Paginate keyword='' page={page} pages={pages} role='my-shop-admin' />
+				</>
 			)}
 		</>
 	)
