@@ -5,6 +5,7 @@ import colors from 'colors'
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 const { Op } = require('sequelize')
+
 // Fetch all products
 // GET /api/products
 // Public
@@ -54,17 +55,28 @@ export const getProductById = asyncHandler(async (req, res) => {
 // GET /api/products/products/:type
 // Public
 export const getProductsByType = asyncHandler(async (req, res) => {
+	const pageSize = 8
+
+	const page = Number(req.query.pageNumber) || 1
+
 	const type = req.params.type
-	const products = await Products.findAll({ where: { category: type } })
+
+	const count = await Products.count({ where: { category: type } })
+	const products = await Products.findAll({
+		where: { category: type },
+		limit: pageSize,
+		offset: pageSize * (page - 1),
+	})
+
 	if (products) {
-		res.json(products)
+		res.json({ products, page, pages: Math.ceil(count / pageSize) })
 	} else {
 		res.status(404)
 		throw new Error('Product not found')
 	}
 })
 
-// Fetch delete a  product
+// Delete a  product
 // DELETE /api/products/:id
 // Private Admin
 

@@ -30,7 +30,12 @@ const App = () => {
 					<Container>
 						<Switch>
 							<Route path='/product/:id' component={ProductScreen} />
-							<Route path='/products/:type' component={ProductByType} />
+							<Route path='/products/:type' component={ProductByType} exact />
+							<Route
+								path='/products/:type/page/:pageNumber'
+								component={ProductByType}
+								exact
+							/>
 							<Route path='/cart/:id?' component={CartScreen} />
 							<Route path='/login' component={LoginScreen} />
 							<Route path='/register' component={RegisterScreen} />
@@ -63,7 +68,7 @@ const App = () => {
 								component={HomeScreen}
 								exact
 							/>
-							<Route exact path='/' component={HomeScreen} exact />
+							<Route exact path='/' component={HomeScreen} />
 						</Switch>
 					</Container>
 				</main>

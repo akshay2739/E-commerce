@@ -6,19 +6,22 @@ import Product from '../components/Product'
 import { listProductsByType } from '../action/productAction'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import Paginate from '../components/Paginate'
 
 const ProductByType = ({ match }) => {
+	const pageNumber = match.params.pageNumber || 1
+
 	const dispatch = useDispatch()
 	const productList = useSelector((state) => {
 		return state.productsList
 	})
 
-	const { loading, error, products } = productList
+	const { loading, error, products, page, pages } = productList
 
 	useEffect(() => {
 		console.log(match.params.type)
-		dispatch(listProductsByType(match.params.type))
-	}, [dispatch, match])
+		dispatch(listProductsByType(match.params.type, pageNumber))
+	}, [dispatch, match, pageNumber])
 
 	return (
 		<Container>
@@ -28,13 +31,16 @@ const ProductByType = ({ match }) => {
 			) : error ? (
 				<Message variant='danger'>{error}</Message>
 			) : (
-				<Row>
-					{products.map((product) => (
-						<Col sm={12} md={6} lg={4} xl={3} key={product.id}>
-							<Product product={product} />
-						</Col>
-					))}
-				</Row>
+				<>
+					<Row>
+						{products.map((product) => (
+							<Col sm={12} md={6} lg={4} xl={3} key={product.id}>
+								<Product product={product} />
+							</Col>
+						))}
+					</Row>
+					<Paginate page={page} pages={pages} pageType={match.params.type} />
+				</>
 			)}
 		</Container>
 	)

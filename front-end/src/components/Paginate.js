@@ -1,7 +1,13 @@
 import React from 'react'
 import { Pagination } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-const Paginate = ({ pages, page, role = 'user', keyword = '' }) => {
+const Paginate = ({
+	pages,
+	page,
+	role = 'user',
+	keyword = '',
+	pageType = '',
+}) => {
 	return (
 		pages > 1 && (
 			<Pagination className='d-flex justify-content-center'>
@@ -9,7 +15,9 @@ const Paginate = ({ pages, page, role = 'user', keyword = '' }) => {
 					<LinkContainer
 						key={x + 1}
 						to={
-							role === 'user'
+							pageType !== ''
+								? `/products/${pageType}/page/${x + 1}`
+								: role === 'user'
 								? keyword
 									? `/search/${keyword}/page/${x + 1}`
 									: `/page/${x + 1}`

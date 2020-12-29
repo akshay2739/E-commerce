@@ -44,13 +44,15 @@ export const listProducts = (keyword = '', pageNumber = '') => async (
 	}
 }
 
-export const listProductsByType = (type) => async (dispatch) => {
+export const listProductsByType = (type, pageNumber) => async (dispatch) => {
 	try {
 		dispatch({
 			type: PRODUCT_LIST_REQUEST,
 		})
 
-		const { data } = await Axios.get(`/api/products/products/${type}`)
+		const { data } = await Axios.get(
+			`/api/products/products/${type}?pageNumber=${pageNumber}`
+		)
 		dispatch({
 			type: PRODUCT_LIST_SUCCESS,
 			payload: data,
