@@ -5,7 +5,7 @@ import {
 	SAVE_PAYMENT_METHOD,
 	SAVE_SHIPPING_ADDRESS,
 	SAVE_ORDER_TYPE,
-} from '../constant/cart.constant'
+
 
 export const addItemToCartAction = (id, quantity) => async (
 	dispatch,
@@ -29,13 +29,7 @@ export const addItemToCartAction = (id, quantity) => async (
 
 		localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 	} catch (error) {
-		const message =
-			error.response && error.response.data.message
-				? error.response.data.message
-				: error.message
-		if (message === 'Not authorized, token failed') {
-			dispatch(logout())
-		}
+		console.log('error')
 	}
 }
 
