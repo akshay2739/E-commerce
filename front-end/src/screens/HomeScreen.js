@@ -10,6 +10,7 @@ import Paginate from '../components/Paginate'
 import Meta from '../components/Meta'
 import ProductCarousel from '../components/ProductCarousel'
 import { Link } from 'react-router-dom'
+import LandingCarousel from '../components/LandingCarousel'
 
 const HomeScreen = ({ match }) => {
 	const keyword = match.params.keyword
@@ -32,7 +33,10 @@ const HomeScreen = ({ match }) => {
 		<>
 			<Meta title='Welcome to My-Shop' />
 			{!keyword ? (
-				<ProductCarousel />
+				<>
+					<LandingCarousel />
+					<ProductCarousel />
+				</>
 			) : (
 				<Link to='/' className='btn btn-light'>
 					Go back

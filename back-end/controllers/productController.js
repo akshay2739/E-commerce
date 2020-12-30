@@ -80,7 +80,10 @@ export const getProductsByType = asyncHandler(async (req, res) => {
 // GET /api/newproducts
 // Public
 export const getNewProducts = asyncHandler(async (req, res) => {
-	const products = await Products.findAll({ limit: 5 })
+	const products = await Products.findAll({
+		limit: 5,
+		order: [['createdAt', 'DESC']],
+	})
 
 	if (products) {
 		res.json(products)
