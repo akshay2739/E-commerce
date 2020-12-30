@@ -4,8 +4,8 @@ import {
 	SAVE_ORDER_TYPE,
 	SAVE_PAYMENT_METHOD,
 	SAVE_SHIPPING_ADDRESS,
+	CART_CLEAR_ITEMS,
 } from '../constant/cart.constant'
-import { CART_CLEAR_ITEMS } from '../constant/cart.constant'
 
 export const cartReducer = (
 	state = {

@@ -81,7 +81,7 @@ export const getProductsByType = asyncHandler(async (req, res) => {
 // Public
 export const getNewProducts = asyncHandler(async (req, res) => {
 	const products = await Products.findAll({ limit: 5 })
-	console.log(products)
+
 	if (products) {
 		res.json(products)
 	} else {

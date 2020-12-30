@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { LinkContainer } from 'react-router-bootstrap'
 import { Image, Carousel } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { listNewProducts } from '../action/productAction'

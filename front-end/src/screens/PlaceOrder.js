@@ -7,9 +7,17 @@ import { Link } from 'react-router-dom'
 import { createOrder } from '../action/orderAction'
 import { useEffect } from 'react'
 import Meta from '../components/Meta'
+import { ORDER_CREATE_RESET } from '../constant/orderConstant'
+import { USER_DETAILS_RESET } from '../constant/user.constant'
 
 const PlaceOrder = ({ history }) => {
 	const cart = useSelector((state) => state.cart)
+
+	if (!cart.orderType) {
+		history.push('/shipping')
+	} else if (!cart.paymentMethod) {
+		history.push('/payment')
+	}
 
 	const dispatch = useDispatch()
 
@@ -48,9 +56,11 @@ const PlaceOrder = ({ history }) => {
 	useEffect(() => {
 		if (success) {
 			history.push(`/order/${order.id}`)
+			dispatch({ type: USER_DETAILS_RESET })
+			dispatch({ type: ORDER_CREATE_RESET })
 		}
 		// eslint-disable-next-line
-	}, [history, success])
+	}, [history, success, dispatch])
 
 	const placeOrderHandler = async () => {
 		dispatch(

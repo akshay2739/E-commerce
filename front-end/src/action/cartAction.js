@@ -28,7 +28,15 @@ export const addItemToCartAction = (id, quantity) => async (
 		})
 
 		localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
-	} catch (error) {}
+	} catch (error) {
+		const message =
+			error.response && error.response.data.message
+				? error.response.data.message
+				: error.message
+		if (message === 'Not authorized, token failed') {
+			dispatch(logout())
+		}
+	}
 }
 
 export const removeItemFromCartAction = (id) => async (dispatch, getState) => {

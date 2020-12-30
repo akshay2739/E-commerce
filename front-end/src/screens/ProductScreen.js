@@ -1,15 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-	Button,
-	Card,
-	Col,
-	Container,
-	Image,
-	ListGroup,
-	Row,
-	Form,
-} from 'react-bootstrap'
+import { Button, Card, Col, Image, ListGroup, Row, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 import { productDetail } from '../action/productAction'

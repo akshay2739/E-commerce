@@ -1,4 +1,5 @@
 import Axios from 'axios'
+
 import { LIST_MY_ORDERS_RESET } from '../constant/orderConstant.js'
 import {
 	USER_LOGIN_FAILURE,
@@ -10,11 +11,11 @@ import {
 	USER_DETAILS_FAILURE,
 	USER_DETAILS_REQUEST,
 	USER_DETAILS_SUCCESS,
+	USER_DETAILS_RESET,
 	USER_UPDATE_PROFILE_FAILURE,
 	USER_UPDATE_PROFILE_REQUEST,
 	USER_UPDATE_PROFILE_SUCCESS,
 	USER_LOGOUT,
-	USER_DETAILS_RESET,
 	USER_LIST_SUCCESS,
 	USER_LIST_FAILURE,
 	USER_LIST_REQUEST,
@@ -51,12 +52,13 @@ export const login = (email, password) => async (dispatch) => {
 
 		localStorage.setItem('userInfo', JSON.stringify(data))
 	} catch (error) {
+		const message =
+			error.response && error.response.data.message
+				? error.response.data.message
+				: error.message
 		dispatch({
 			type: USER_LOGIN_FAILURE,
-			payload:
-				error.response && error.response.data.message
-					? error.response.data.message
-					: error.message,
+			payload: message,
 		})
 	}
 }
@@ -76,6 +78,10 @@ export const logout = () => async (dispatch) => {
 	dispatch({
 		type: USER_DETAILS_RESET,
 	})
+	localStorage.removeItem('cartItems')
+	localStorage.removeItem('shippingAddress')
+	localStorage.removeItem('paymentMethod')
+	localStorage.removeItem('orderType')
 	document.location.href = '/login'
 }
 
@@ -109,12 +115,13 @@ export const register = (name, email, password) => async (dispatch) => {
 
 		localStorage.setItem('userInfo', JSON.stringify(data))
 	} catch (error) {
+		const message =
+			error.response && error.response.data.message
+				? error.response.data.message
+				: error.message
 		dispatch({
 			type: USER_REGISTER_FAILURE,
-			payload:
-				error.response && error.response.data.message
-					? error.response.data.message
-					: error.message,
+			payload: message,
 		})
 	}
 }
@@ -141,12 +148,13 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 			payload: data,
 		})
 	} catch (error) {
+		const message =
+			error.response && error.response.data.message
+				? error.response.data.message
+				: error.message
 		dispatch({
 			type: USER_DETAILS_FAILURE,
-			payload:
-				error.response && error.response.data.message
-					? error.response.data.message
-					: error.message,
+			payload: message,
 		})
 	}
 }
@@ -180,12 +188,13 @@ export const updateUserDetails = (user) => async (dispatch, getState) => {
 
 		localStorage.setItem('userInfo', JSON.stringify(data))
 	} catch (error) {
+		const message =
+			error.response && error.response.data.message
+				? error.response.data.message
+				: error.message
 		dispatch({
 			type: USER_UPDATE_PROFILE_FAILURE,
-			payload:
-				error.response && error.response.data.message
-					? error.response.data.message
-					: error.message,
+			payload: message,
 		})
 	}
 }
@@ -209,12 +218,13 @@ export const listUsers = () => async (dispatch, getState) => {
 			payload: data,
 		})
 	} catch (error) {
+		const message =
+			error.response && error.response.data.message
+				? error.response.data.message
+				: error.message
 		dispatch({
 			type: USER_LIST_FAILURE,
-			payload:
-				error.response && error.response.data.message
-					? error.response.data.message
-					: error.message,
+			payload: message,
 		})
 	}
 }
@@ -237,12 +247,13 @@ export const deleteUser = (id) => async (dispatch, getState) => {
 			type: USER_DELETE_SUCCESS,
 		})
 	} catch (error) {
+		const message =
+			error.response && error.response.data.message
+				? error.response.data.message
+				: error.message
 		dispatch({
 			tyoe: USER_DELETE_FAILURE,
-			errr:
-				error.response && error.response.data.message
-					? error.response.data.message
-					: error.message,
+			errr: message,
 		})
 	}
 }
@@ -270,13 +281,16 @@ export const editUser = (user) => async (dispatch, getState) => {
 			type: USER_DETAILS_SUCCESS,
 			payload: data,
 		})
+
+		dispatch({ type: USER_DETAILS_RESET })
 	} catch (error) {
+		const message =
+			error.response && error.response.data.message
+				? error.response.data.message
+				: error.message
 		dispatch({
 			tyoe: USER_UPDATE_FAILURE,
-			errr:
-				error.response && error.response.data.message
-					? error.response.data.message
-					: error.message,
+			errr: message,
 		})
 	}
 }
