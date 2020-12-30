@@ -5,7 +5,7 @@ import {
 	SAVE_PAYMENT_METHOD,
 	SAVE_SHIPPING_ADDRESS,
 	SAVE_ORDER_TYPE,
-
+} from '../constant/cart.constant'
 
 export const addItemToCartAction = (id, quantity) => async (
 	dispatch,
