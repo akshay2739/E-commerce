@@ -20,7 +20,7 @@ const ProductByType = ({ match }) => {
 	const { loading, error, products, page, pages } = productList
 
 	useEffect(() => {
-		console.log(match.params.type)
+		window.scrollTo(0, 0)
 		dispatch(listProductsByType(match.params.type, pageNumber))
 	}, [dispatch, match, pageNumber])
 

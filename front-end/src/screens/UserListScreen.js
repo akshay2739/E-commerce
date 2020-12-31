@@ -19,6 +19,7 @@ const UserListScreen = ({ history }) => {
 	const { success: successDelete } = usersDelete
 
 	useEffect(() => {
+		window.scrollTo(0, 0)
 		if (userInfo && userInfo.role === 'my-shop-admin') {
 			dispatch(listUsers())
 		} else {

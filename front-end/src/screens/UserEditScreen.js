@@ -28,6 +28,7 @@ const UserEditScreen = ({ match, history }) => {
 	} = userEdit
 
 	useEffect(() => {
+		window.scrollTo(0, 0)
 		if (successEdit) {
 			dispatch({ type: USER_UPDATE_RESET })
 			history.push('/admin/userlist')

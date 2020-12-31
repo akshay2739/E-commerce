@@ -54,6 +54,7 @@ const PlaceOrder = ({ history }) => {
 	const { order, success, error } = orderCreate
 
 	useEffect(() => {
+		window.scrollTo(0, 0)
 		if (success) {
 			history.push(`/order/${order.id}`)
 			dispatch({ type: USER_DETAILS_RESET })

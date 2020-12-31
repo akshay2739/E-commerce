@@ -31,6 +31,7 @@ const OrderScreen = ({ match, history }) => {
 	const [sdkready, setSdkready] = useState(false)
 
 	useEffect(() => {
+		window.scrollTo(0, 0)
 		if (!userInfo) {
 			history.push('/login')
 		}

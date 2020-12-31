@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, Button, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { saveOrderType, saveShippingAddress } from '../action/cartAction'
@@ -31,6 +31,10 @@ const ShippingScreen = ({ history }) => {
 		dispatch(saveShippingAddress({ address, city, postalCode, country }))
 		history.push('/payment')
 	}
+
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	})
 
 	return (
 		<FormContainer>

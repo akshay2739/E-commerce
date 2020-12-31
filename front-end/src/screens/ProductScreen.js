@@ -19,6 +19,7 @@ const ProductScreen = ({ history, match }) => {
 	const { loading, product, error } = productResponse
 
 	useEffect(() => {
+		window.scrollTo(0, 0)
 		dispatch(productDetail(match.params.id))
 	}, [dispatch, match.params.id])
 

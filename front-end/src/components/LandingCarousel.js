@@ -15,7 +15,7 @@ const LandingCarousel = () => {
 					zIndex: 0,
 				}}
 			>
-				<source src='/images/video.mp4' type='video/mp4' />
+				<source src='/images/4.mp4' type='video/mp4' />
 			</video>
 
 			<div

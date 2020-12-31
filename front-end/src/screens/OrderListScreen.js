@@ -16,6 +16,7 @@ const OrderListScreen = ({ history }) => {
 	const { loading, orders, error } = orderList
 
 	useEffect(() => {
+		window.scrollTo(0, 0)
 		if (userInfo && userInfo.role === 'my-shop-admin') {
 			dispatch(listAllOrders())
 		} else {

@@ -39,6 +39,7 @@ const ProductListScreen = ({ history, match }) => {
 	} = productCreate
 
 	useEffect(() => {
+		window.scrollTo(0, 0)
 		dispatch({ type: PRODUCT_CREATE_RESET })
 
 		if (userInfo.role !== 'my-shop-admin') {
