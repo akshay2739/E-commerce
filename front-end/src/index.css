@@ -46,6 +46,10 @@ h1 {
 	margin: 0 auto;
 }
 
+.landing-text {
+	transform: translate(0, -50vh);
+}
+
 @media (max-width: 900px) {
 	.carousel img {
 		width: 300px;

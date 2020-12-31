@@ -3,30 +3,42 @@ import { Col, Row, Image } from 'react-bootstrap'
 
 const LandingCarousel = () => {
 	return (
-		<div
-			style={{
-				backgroundImage: `url(https://images.pexels.com/photos/1336873/pexels-photo-1336873.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500)`,
-				width: '100%',
-				height: '40vh',
-				backgroundPosition: 'center',
-				marginBottom: 20,
-			}}
-		>
+		<div style={{ position: 'relative' }}>
+			<video
+				autoPlay
+				muted
+				loop
+				style={{
+					width: '100%',
+					height: '50vh',
+					objectFit: 'cover',
+					position: 'relative',
+					zIndex: 0,
+				}}
+			>
+				<source src='/images/video.mp4' type='video/mp4' />
+			</video>
+
 			<div
 				style={{
-					backgroundColor: 'black',
-					opacity: 0.7,
+					background: 'rgba(0, 0, 0, 0.5)',
+					opacity: 1,
 					width: '100%',
-					height: '40vh',
-					display: 'flex',
+					height: '50vh',
+					position: 'absolute',
+					top: 0,
+					left: 0,
+					zIndex: 0,
 					justifyContent: 'center',
+					display: 'flex',
 					alignItems: 'center',
 				}}
 			>
 				<h1
 					style={{
-						color: 'white',
-						fontSize: '3rem',
+						color: '#ffffff',
+						opacity: 1,
+						fontWeight: 'bold',
 						textAlign: 'center',
 					}}
 				>
