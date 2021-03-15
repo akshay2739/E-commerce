@@ -12,10 +12,13 @@ const ProductScreen = ({ history, match }) => {
 	const dispatch = useDispatch()
 
 	const [quantity, setQuantity] = useState(1)
+	const [selectedSize, setselectedSize] = useState(0)
+	const [selectedStock, setSelectedStock] = useState(0)
 
 	const productResponse = useSelector((state) => {
 		return state.productDetail
 	})
+
 	const { loading, product, error } = productResponse
 
 	useEffect(() => {
@@ -24,7 +27,7 @@ const ProductScreen = ({ history, match }) => {
 	}, [dispatch, match.params.id])
 
 	const addQuantity = () => {
-		if (quantity >= product.countInStock_S) {
+		if (quantity >= selectedStock) {
 			return
 		}
 		const oldQuantity = quantity
@@ -42,7 +45,46 @@ const ProductScreen = ({ history, match }) => {
 	}
 
 	const addToCartHandler = () => {
-		history.push(`/cart/${match.params.id}?qty=${quantity}`)
+		history.push(
+			`/cart/${match.params.id}?qty=${quantity}?size=${selectedSize}`
+		)
+	}
+
+	const handleSizeChange = (e) => {
+		switch (e.target.value) {
+			case 's':
+				setselectedSize('S')
+				setSelectedStock(product.countInStock_S)
+				break
+
+			case 'm':
+				setselectedSize('M')
+				setSelectedStock(product.countInStock_M)
+				break
+
+			case 'l':
+				setselectedSize('L')
+				setSelectedStock(product.countInStock_L)
+				break
+
+			case 'xl':
+				setselectedSize('XL')
+				setSelectedStock(product.countInStock_XL)
+				break
+
+			case 'xxl':
+				setselectedSize('XXL')
+				setSelectedStock(product.countInStock_XXL)
+				break
+
+			case '0':
+				setselectedSize(0)
+				setSelectedStock(0)
+
+			default:
+				break
+		}
+		setQuantity(1)
 	}
 
 	return (
@@ -100,12 +142,17 @@ const ProductScreen = ({ history, match }) => {
 												controlId='exampleForm.ControlSelect1'
 												className='my-auto'
 											>
-												<Form.Control as='select' size='sm'>
-													<option className='text-center'>S</option>
-													<option>M</option>
-													<option>L</option>
-													<option>XL</option>
-													<option>XXL</option>
+												<Form.Control
+													as='select'
+													size='sm'
+													onChange={(e) => handleSizeChange(e)}
+												>
+													<option value='0'>Size</option>
+													<option value='s'>S</option>
+													<option value='m'>M</option>
+													<option value='l'>L</option>
+													<option value='xl'>XL</option>
+													<option value='xxl'>XXL</option>
 												</Form.Control>
 											</Form.Group>
 										</Col>
@@ -116,7 +163,9 @@ const ProductScreen = ({ history, match }) => {
 									<Row>
 										<Col>Status :</Col>
 										<Col>
-											{product.countInStock_S > 0 ? (
+											{selectedSize === 0 ? (
+												<strong className='text-dark'>Select Size</strong>
+											) : selectedStock > 0 ? (
 												<strong className='text-success'>In stock</strong>
 											) : (
 												<strong className='text-danger'>Out of stock</strong>
@@ -124,7 +173,7 @@ const ProductScreen = ({ history, match }) => {
 										</Col>
 									</Row>
 								</ListGroup.Item>
-								{product.countInStock_S > 0 && (
+								{selectedStock > 0 && (
 									<ListGroup.Item>
 										<Row>
 											<Col className='mt-1'>Quantity :</Col>
@@ -146,7 +195,9 @@ const ProductScreen = ({ history, match }) => {
 										onClick={addToCartHandler}
 										className='btn-block'
 										type='button'
-										disabled={product.countInStock === 0 ? true : false}
+										disabled={
+											(selectedStock === 0 ? true : false) || selectedSize === 0
+										}
 									>
 										Add To Cart
 									</Button>

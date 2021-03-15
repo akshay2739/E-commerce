@@ -15,6 +15,9 @@ const OrderItem = sequelize.define('orderItem', {
 	quantity: {
 		type: DataTypes.INTEGER,
 	},
+	size: {
+		type: DataTypes.STRING,
+	},
 })
 
 export default OrderItem

@@ -12,7 +12,11 @@ import Meta from '../components/Meta'
 const CartScreen = ({ match, location, history }) => {
 	const id = match.params.id
 
-	const quantity = location.search ? Number(location.search.split('=')[1]) : 1
+	const query = location.search.split('?')
+
+	const quantity = query[1] ? Number(query[1].split('=')[1]) : 1
+
+	const size = query[2] ? query[2].split('=')[1] : 'L'
 
 	const dispatch = useDispatch()
 
@@ -25,7 +29,7 @@ const CartScreen = ({ match, location, history }) => {
 	useEffect(() => {
 		window.scrollTo(0, 0)
 		if (id) {
-			dispatch(addItemToCartAction(id, quantity))
+			dispatch(addItemToCartAction(id, quantity, size))
 		}
 	}, [dispatch, id, quantity])
 
@@ -59,7 +63,7 @@ const CartScreen = ({ match, location, history }) => {
 											<Link to={`/product/${item.id}`}>{item.name}</Link>
 										</Col>
 										<Col md={2} xs={4}>
-											Size : <strong>L</strong>
+											Size : <strong>{size}</strong>
 										</Col>
 										<Col md={1} xs={3}>
 											<strong>{item.quantity} </strong> x

@@ -4,6 +4,7 @@ import Products from '../models/ProductModel.js'
 import colors from 'colors'
 import User from '../models/UserModel.js'
 import OrderItem from '../models/OrderItem.js'
+import orderRoute from '../routes/orderRoutes.js'
 
 // Create Order
 // POST /api/orders
@@ -41,7 +42,7 @@ export const addOrderItems = asyncHandler(async (req, res) => {
 		cartItems.map(async (item) => {
 			const productItem = await Products.findByPk(item.id)
 			const addedProducts = await newOrder.addProducts(productItem, {
-				through: { quantity: item.quantity },
+				through: { quantity: item.quantity, size: item.size },
 			})
 		})
 
@@ -88,6 +89,46 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
 		order.paypal_email = req.body.payer.email_address
 
 		const updatedOrder = await order.save()
+
+		const orderItems = await OrderItem.findAll({
+			where: { orderId: req.params.id },
+		})
+		console.log(`-----------------orderItems--------------`.red)
+
+		orderItems.map(async (orderItem) => {
+			console.log('ORDER'.green)
+			console.log(`${orderItem.productId}`.bgGreen)
+			const productId = orderItem.productId
+			const product = await Products.findByPk(productId)
+			switch (orderItem.size) {
+				case 'S':
+					console.log('SSSSSSSSSSSSSSSS')
+					product.countInStock_S -= orderItem.quantity
+					break
+
+				case 'M':
+					product.countInStock_M -= orderItem.quantity
+					break
+
+				case 'L':
+					product.countInStock_L -= orderItem.quantity
+					break
+
+				case 'XL':
+					product.countInStock_XL -= orderItem.quantity
+					break
+
+				case 'XXL':
+					product.countInStock_XXL -= orderItem.quantity
+					break
+
+				default:
+					break
+			}
+
+			const updatedProduct = await product.save()
+		})
+
 		res.json(updatedOrder)
 	} else {
 		res.status(404)

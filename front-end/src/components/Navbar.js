@@ -22,7 +22,7 @@ const MyNavbar = () => {
 			collapseOnSelect
 			expand='lg'
 			fixed='top'
-			className='navbar navbar-expand-lg navbar-dark bg-primary'
+			className='navbar navbar-expand-lg navbar-dark bg-primary shadow'
 		>
 			<Container>
 				<Navbar.Brand>

@@ -7,7 +7,7 @@ import {
 	SAVE_ORDER_TYPE,
 } from '../constant/cart.constant'
 
-export const addItemToCartAction = (id, quantity) => async (
+export const addItemToCartAction = (id, quantity, size) => async (
 	dispatch,
 	getState
 ) => {
@@ -20,6 +20,7 @@ export const addItemToCartAction = (id, quantity) => async (
 			image: data.image,
 			price: data.price,
 			quantity,
+			size,
 		}
 
 		dispatch({
