@@ -6,6 +6,17 @@ import User from '../models/UserModel.js'
 import OrderItem from '../models/OrderItem.js'
 import orderRoute from '../routes/orderRoutes.js'
 
+import nodemailer from 'nodemailer'
+
+let transport = nodemailer.createTransport({
+	host: 'smtp.mailtrap.io',
+	port: 2525,
+	auth: {
+		user: '83b38c606ad862',
+		pass: '8d7a41dc5b8029',
+	},
+})
+
 // Create Order
 // POST /api/orders
 // Private
@@ -129,6 +140,20 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
 			const updatedProduct = await product.save()
 		})
 
+		const message = {
+			from: 'akshaypatel2739@gmail.com', // Sender address
+			to: 'akshaypatel3927@gmail.com', // List of recipients
+			subject: 'Design Your Model S | Tesla', // Subject line
+			text: 'Have the most fun you can in a car. Get your Tesla today!', // Plain text body
+		}
+		transport.sendMail(message, function (err, info) {
+			if (err) {
+				console.log(err)
+			} else {
+				console.log(info)
+			}
+		})
+
 		res.json(updatedOrder)
 	} else {
 		res.status(404)
@@ -170,6 +195,11 @@ export const getMyOrders = asyncHandler(async (req, res) => {
 export const getAllOrders = asyncHandler(async (req, res) => {
 	const orders = await Orders.findAll({
 		include: [{ model: User }, { model: Products }],
+		order: [
+			['createdAt', 'DESC'],
+			['deliveredAt', 'DESC'],
+			['paidAt', 'DESC'],
+		],
 	})
 	res.json(orders)
 })

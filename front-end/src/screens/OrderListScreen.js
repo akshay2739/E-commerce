@@ -53,14 +53,14 @@ const OrderListScreen = ({ history }) => {
 								<td>$ {order.totalPrice}</td>
 								<td>
 									{order.isPaid ? (
-										<td>{order.paidAt.substring(0, 10)}</td>
+										order.paidAt.substring(0, 10)
 									) : (
 										<i className='fas fa-times' style={{ color: 'red' }}></i>
 									)}
 								</td>
 								<td>
 									{order.isDelivered ? (
-										<td>{order.deliveredAt.substring(0, 10)}</td>
+										order.deliveredAt.substring(0, 10)
 									) : (
 										<i className='fas fa-times' style={{ color: 'red' }}></i>
 									)}
