@@ -95,7 +95,7 @@ const ProductScreen = ({ history, match }) => {
 			{loading ? (
 				<Loader />
 			) : error ? (
-				<Message variant='danger'>{error}</Message>
+				history.replace({ pathname: '/*', state: 'Product Not Found' })
 			) : (
 				<Row>
 					<Meta title={product.name} />

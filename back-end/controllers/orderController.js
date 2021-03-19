@@ -32,12 +32,52 @@ export const addOrderItems = asyncHandler(async (req, res) => {
 		shippingPrice,
 		totalPrice,
 	} = req.body
-	console.log(req.body.orderType)
+
 	if (cartItems && cartItems.length === 0) {
 		res.status(400)
 		throw new Error('No Order Items')
 	} else {
+		let numberOfOrders = await Orders.count()
+		numberOfOrders++
+
+		let numberOfOrdersString = String(numberOfOrders)
+
+		if (numberOfOrdersString.length === 5) {
+			numberOfOrdersString = '0' + numberOfOrdersString
+		} else if (numberOfOrdersString.length === 4) {
+			numberOfOrdersString = '00' + numberOfOrdersString
+		} else if (numberOfOrdersString.length === 3) {
+			numberOfOrdersString = '000' + numberOfOrdersString
+		} else if (numberOfOrdersString.length === 2) {
+			numberOfOrdersString = '0000' + numberOfOrdersString
+		} else if (numberOfOrdersString.length === 1) {
+			console.log(`AAAAAAAAAA ${numberOfOrdersString.length}`.green)
+			try {
+				numberOfOrdersString = '00000' + numberOfOrdersString
+			} catch (error) {
+				console.log(error)
+			}
+		}
+
+		const date = new Date()
+		const months = [
+			'JAN',
+			'FEB',
+			'MAR',
+			'APR',
+			'JUN',
+			'JUL',
+			'AUG',
+			'SEP',
+			'OCT',
+			'NOV',
+			'DEC',
+		]
+		const month = months[date.getMonth()]
+
+		console.log(`${numberOfOrdersString}`.bgGreen)
 		const newOrder = await req.user.createOrder({
+			orderId: `MS${month}${numberOfOrdersString}`,
 			address: shippingAddress.address,
 			city: shippingAddress.city,
 			postalCode: shippingAddress.postalCode,
@@ -104,7 +144,6 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
 		const orderItems = await OrderItem.findAll({
 			where: { orderId: req.params.id },
 		})
-		console.log(`-----------------orderItems--------------`.red)
 
 		orderItems.map(async (orderItem) => {
 			console.log('ORDER'.green)
@@ -113,7 +152,6 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
 			const product = await Products.findByPk(productId)
 			switch (orderItem.size) {
 				case 'S':
-					console.log('SSSSSSSSSSSSSSSS')
 					product.countInStock_S -= orderItem.quantity
 					break
 

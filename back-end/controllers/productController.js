@@ -1,10 +1,14 @@
-import asyncHandler from 'express-async-handler'
+import fs from 'fs'
+import path from 'path'
 import protect from '../middleware/authMiddleware.js'
+import asyncHandler from 'express-async-handler'
 import Products from '../models/ProductModel.js'
 import colors from 'colors'
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 const { Op } = require('sequelize')
+
+const __dirname = path.resolve()
 
 // Fetch all products
 // GET /api/products
@@ -101,6 +105,7 @@ export const deleteProductById = asyncHandler(async (req, res) => {
 	const id = req.params.id
 	const product = await Products.findByPk(id)
 	if (product) {
+		fs.unlink(__dirname + product.image, (err) => console.log(err))
 		await product.destroy()
 		res.json({ message: 'Product Removed' })
 	} else {

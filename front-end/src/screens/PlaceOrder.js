@@ -123,13 +123,20 @@ const PlaceOrder = ({ history }) => {
 													/>
 												</Col>
 
-												<Col md={6} xs={8}>
-													<Link to={`product/${item.id}`}>{item.name}</Link>
-												</Col>
+												<Col>
+													<Row>
+														<Col md={12} xs={8}>
+															<Link to={`product/${item.id}`}>{item.name}</Link>
+														</Col>
 
-												<Col md={4} xs={12}>
-													{item.quantity} X $ {item.price} = ${' '}
-													<strong> {item.quantity * item.price}</strong>
+														<Col md={2} xs={8}>
+															Size : {item.size}
+														</Col>
+														<Col md={4} xs={12}>
+															{item.quantity} X $ {item.price} = ${' '}
+															<strong> {item.quantity * item.price}</strong>
+														</Col>
+													</Row>
 												</Col>
 											</Row>
 										</ListGroup.Item>

@@ -1,0 +1,16 @@
+.page-not-found .link-container {
+	width: 25%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+@media screen and (max-width: 1220px) {
+	.page-not-found .link-container {
+		width: 90%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+}

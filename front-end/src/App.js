@@ -20,6 +20,7 @@ import UserEditScreen from './screens/UserEditScreen'
 import ProductListScreen from './screens/ProductList'
 import ProductEditScreen from './screens/ProductEditScreen'
 import OrderListScreen from './screens/OrderListScreen'
+import PageNotFound from './screens/PageNotFound'
 
 const App = () => {
 	return (
@@ -69,6 +70,7 @@ const App = () => {
 								exact
 							/>
 							<Route exact path='/' component={HomeScreen} />
+							<Route path='*' component={PageNotFound} />
 						</Switch>
 					</Container>
 				</main>

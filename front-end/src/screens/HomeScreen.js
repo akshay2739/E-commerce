@@ -38,6 +38,30 @@ const HomeScreen = ({ match }) => {
 					<LandingCarousel />
 					<h1>New arrivals</h1>
 					<ProductCarousel />
+
+					<h1>Shop by Category</h1>
+
+					<Row>
+						<Col md={4} xs={12} style={{ marginTop: 15 }}>
+							<Link to='/products/men' className='shadow'>
+								<Image src='/images/men.webp' fluid rounded />
+							</Link>
+						</Col>
+
+						<Col md={4} xs={12} style={{ marginTop: 15 }}>
+							<Link to='products/women' className='shadow'>
+								<Image src='/images/women.webp' fluid rounded />
+							</Link>
+						</Col>
+
+						<Col md={4} xs={12} style={{ marginTop: 15 }}>
+							<Link to='products/kids' className='shadow'>
+								<Image src='/images/special.jpg' fluid rounded />
+							</Link>
+						</Col>
+					</Row>
+
+					<h1>Latest Products</h1>
 				</>
 			) : (
 				<Link to='/' className='btn btn-light'>
@@ -45,29 +69,6 @@ const HomeScreen = ({ match }) => {
 				</Link>
 			)}
 
-			<h1>Shop by Category</h1>
-
-			<Row>
-				<Col md={4} xs={12} style={{ marginTop: 15 }}>
-					<Link to='/products/men' className='shadow'>
-						<Image src='/images/men.webp' fluid rounded />
-					</Link>
-				</Col>
-
-				<Col md={4} xs={12} style={{ marginTop: 15 }}>
-					<Link to='products/women' className='shadow'>
-						<Image src='/images/women.webp' fluid rounded />
-					</Link>
-				</Col>
-
-				<Col md={4} xs={12} style={{ marginTop: 15 }}>
-					<Link to='products/kids' className='shadow'>
-						<Image src='/images/special.jpg' fluid rounded />
-					</Link>
-				</Col>
-			</Row>
-
-			<h1>Latest Products</h1>
 			{loading ? (
 				<Loader />
 			) : error ? (
@@ -89,53 +90,57 @@ const HomeScreen = ({ match }) => {
 				</>
 			)}
 
-			<h1>Why choose us</h1>
-			<Row>
-				<Col md={4} xs={12}>
-					<Card
-						style={{ padding: 15, marginTop: 15, marginBottom: 15 }}
-						className='shadow'
-					>
-						<Card.Title>Reason 1</Card.Title>
-						<Card.Text>
-							Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-							Consequuntur architecto accusantium sint doloribus quam animi
-							molestias necessitatibus esse quaerat vero sunt non ratione nihil,
-							quas mollitia magnam eos voluptatum ex?
-						</Card.Text>
-					</Card>
-				</Col>
+			{!keyword ? (
+				<>
+					<h1>Why choose us</h1>
+					<Row>
+						<Col md={4} xs={12}>
+							<Card
+								style={{ padding: 15, marginTop: 15, marginBottom: 15 }}
+								className='shadow'
+							>
+								<Card.Title>Reason 1</Card.Title>
+								<Card.Text>
+									Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+									Consequuntur architecto accusantium sint doloribus quam animi
+									molestias necessitatibus esse quaerat vero sunt non ratione
+									nihil, quas mollitia magnam eos voluptatum ex?
+								</Card.Text>
+							</Card>
+						</Col>
 
-				<Col md={4} xs={12}>
-					<Card
-						style={{ padding: 15, marginTop: 15, marginBottom: 15 }}
-						className='shadow'
-					>
-						<Card.Title>Reason 2</Card.Title>
-						<Card.Text>
-							Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-							Consequuntur architecto accusantium sint doloribus quam animi
-							molestias necessitatibus esse quaerat vero sunt non ratione nihil,
-							quas mollitia magnam eos voluptatum ex?
-						</Card.Text>
-					</Card>
-				</Col>
+						<Col md={4} xs={12}>
+							<Card
+								style={{ padding: 15, marginTop: 15, marginBottom: 15 }}
+								className='shadow'
+							>
+								<Card.Title>Reason 2</Card.Title>
+								<Card.Text>
+									Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+									Consequuntur architecto accusantium sint doloribus quam animi
+									molestias necessitatibus esse quaerat vero sunt non ratione
+									nihil, quas mollitia magnam eos voluptatum ex?
+								</Card.Text>
+							</Card>
+						</Col>
 
-				<Col md={4} xs={12}>
-					<Card
-						style={{ padding: 15, marginTop: 15, marginBottom: 15 }}
-						className='shadow'
-					>
-						<Card.Title>Reason 3</Card.Title>
-						<Card.Text>
-							Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-							Consequuntur architecto accusantium sint doloribus quam animi
-							molestias necessitatibus esse quaerat vero sunt non ratione nihil,
-							quas mollitia magnam eos voluptatum ex?
-						</Card.Text>
-					</Card>
-				</Col>
-			</Row>
+						<Col md={4} xs={12}>
+							<Card
+								style={{ padding: 15, marginTop: 15, marginBottom: 15 }}
+								className='shadow'
+							>
+								<Card.Title>Reason 3</Card.Title>
+								<Card.Text>
+									Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+									Consequuntur architecto accusantium sint doloribus quam animi
+									molestias necessitatibus esse quaerat vero sunt non ratione
+									nihil, quas mollitia magnam eos voluptatum ex?
+								</Card.Text>
+							</Card>
+						</Col>
+					</Row>
+				</>
+			) : null}
 		</>
 	)
 }

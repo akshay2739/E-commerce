@@ -9,8 +9,16 @@ import Message from '../components/Message'
 import Paginate from '../components/Paginate'
 import Meta from '../components/Meta'
 
-const ProductByType = ({ match }) => {
+const ProductByType = ({ match, history }) => {
 	const pageNumber = match.params.pageNumber || 1
+
+	if (
+		match.params.type != 'men' &&
+		match.params.type != 'women' &&
+		match.params.type != 'kids'
+	) {
+		history.push({ pathname: '/*', state: 'Page Not Found' })
+	}
 
 	const [size, setSize] = useState('all')
 	const [sort, setSort] = useState('all')

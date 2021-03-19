@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Col, Row, ListGroup, Image, Card, Button } from 'react-bootstrap'
+import { Col, Row, ListGroup, Image, Card, Button, Nav } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -79,9 +79,15 @@ const OrderScreen = ({ match, history }) => {
 		<>
 			<Meta title='My-Shop Order' />
 			<h1>Order</h1>
+
 			<Row>
 				<Col md={8}>
 					<ListGroup variant='flush'>
+						<ListGroup.Item>
+							<p>
+								<strong>Order ID</strong> : {order.orderId}
+							</p>
+						</ListGroup.Item>
 						<ListGroup.Item>
 							<h2>Shipping</h2>
 							<p>
@@ -145,13 +151,23 @@ const OrderScreen = ({ match, history }) => {
 													/>
 												</Col>
 
-												<Col xs={8}>
-													<Link to={`/product/${item.id}`}>{item.name}</Link>
-												</Col>
+												<Col>
+													<Row>
+														<Col md={12}>
+															<Link to={`/product/${item.id}`}>
+																{item.name}
+															</Link>
+														</Col>
 
-												<Col md={4} xs={12}>
-													{item.orderItem.quantity} x $ {item.price} = ${' '}
-													{item.orderItem.quantity * item.price}
+														<Col xs={8} md={2}>
+															Size : {item.orderItem.size}
+														</Col>
+
+														<Col md={4} xs={12}>
+															{item.orderItem.quantity} x $ {item.price} = ${' '}
+															{item.orderItem.quantity * item.price}
+														</Col>
+													</Row>
 												</Col>
 											</Row>
 										</ListGroup.Item>

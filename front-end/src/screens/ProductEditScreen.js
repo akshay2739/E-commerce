@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
@@ -159,82 +159,86 @@ const ProductEditScreen = ({ match, history }) => {
 							{uploading && <Loader />}
 						</Form.Group>
 
-						<Form.Group controlId='category'>
-							<Form.Label>Select Category</Form.Label>
-							<Form.Control
-								type='text'
-								placeholder='Category'
-								value={category}
-								required
-								onChange={(e) => setCategory(e.target.value)}
-							></Form.Control>
-						</Form.Group>
+						<Row>
+							<Col md={6}>
+								<Form.Group controlId='category'>
+									<Form.Label>Select Category</Form.Label>
+									<Form.Control
+										type='text'
+										placeholder='Category'
+										value={category}
+										required
+										onChange={(e) => setCategory(e.target.value)}
+									></Form.Control>
+								</Form.Group>
+							</Col>
+							<Col md={6}>
+								<Form.Group controlId='countInStock_S'>
+									<Form.Label>Stock of S</Form.Label>
+									<Form.Control
+										type='text'
+										placeholder='Enter Stock of S'
+										value={countInStock_S}
+										required
+										onChange={(e) => setCountInStock_S(e.target.value)}
+									></Form.Control>
+								</Form.Group>
+							</Col>
+						</Row>
 
-						<Form.Group controlId='size'>
-							<Form.Label>Add Size</Form.Label>
-							<Form.Control
-								type='text'
-								placeholder='Size'
-								value={size}
-								required
-								onChange={(e) => setSize(e.target.value)}
-							></Form.Control>
-						</Form.Group>
+						<Row>
+							<Col md={6}>
+								<Form.Group controlId='countInStock_M'>
+									<Form.Label>Stock of M</Form.Label>
+									<Form.Control
+										type='text'
+										placeholder='Enter Stock of M'
+										value={countInStock_M}
+										required
+										onChange={(e) => setCountInStock_M(e.target.value)}
+									></Form.Control>
+								</Form.Group>
+							</Col>
+							<Col md={6}>
+								<Form.Group controlId='countInStock_L'>
+									<Form.Label>Stock of L</Form.Label>
+									<Form.Control
+										type='text'
+										placeholder='Enter Stock of L'
+										value={countInStock_L}
+										required
+										onChange={(e) => setCountInStock_L(e.target.value)}
+									></Form.Control>
+								</Form.Group>
+							</Col>
+						</Row>
+						<Row>
+							<Col md={6}>
+								<Form.Group controlId='countInStock_XXL'>
+									<Form.Label>Stock of XXL</Form.Label>
+									<Form.Control
+										type='text'
+										placeholder='Enter Stock of XXL'
+										value={countInStock_XXL}
+										required
+										onChange={(e) => setCountInStock_XXL(e.target.value)}
+									></Form.Control>
+								</Form.Group>
+							</Col>
 
-						<Form.Group controlId='countInStock_S'>
-							<Form.Label>Stock of S</Form.Label>
-							<Form.Control
-								type='text'
-								placeholder='Enter Stock of S'
-								value={countInStock_S}
-								required
-								onChange={(e) => setCountInStock_S(e.target.value)}
-							></Form.Control>
-						</Form.Group>
-
-						<Form.Group controlId='countInStock_M'>
-							<Form.Label>Stock of M</Form.Label>
-							<Form.Control
-								type='text'
-								placeholder='Enter Stock of M'
-								value={countInStock_M}
-								required
-								onChange={(e) => setCountInStock_M(e.target.value)}
-							></Form.Control>
-						</Form.Group>
-
-						<Form.Group controlId='countInStock_L'>
-							<Form.Label>Stock of L</Form.Label>
-							<Form.Control
-								type='text'
-								placeholder='Enter Stock of L'
-								value={countInStock_L}
-								required
-								onChange={(e) => setCountInStock_L(e.target.value)}
-							></Form.Control>
-						</Form.Group>
-
-						<Form.Group controlId='countInStock_XL'>
-							<Form.Label>Stock of XL</Form.Label>
-							<Form.Control
-								type='text'
-								placeholder='Enter Stock of XL'
-								value={countInStock_XL}
-								required
-								onChange={(e) => setCountInStock_XL(e.target.value)}
-							></Form.Control>
-						</Form.Group>
-
-						<Form.Group controlId='countInStock_XXL'>
-							<Form.Label>Stock of XXL</Form.Label>
-							<Form.Control
-								type='text'
-								placeholder='Enter Stock of XXL'
-								value={countInStock_XXL}
-								required
-								onChange={(e) => setCountInStock_XXL(e.target.value)}
-							></Form.Control>
-						</Form.Group>
+							<Col md={6}>
+								<Form.Group controlId='countInStock_XL'>
+									<Form.Label>Stock of XL</Form.Label>
+									<Form.Control
+										type='text'
+										placeholder='Enter Stock of XL'
+										value={countInStock_XL}
+										required
+										onChange={(e) => setCountInStock_XL(e.target.value)}
+									></Form.Control>
+								</Form.Group>
+							</Col>
+						</Row>
 
 						<Form.Group controlId='description'>
 							<Form.Label>Description</Form.Label>

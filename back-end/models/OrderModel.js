@@ -9,14 +9,21 @@ const Orders = sequelize.define(
 	{
 		id: {
 			type: DataTypes.UUID,
+			// type: DataTypes.STRING,
 			defaultValue: DataTypes.UUIDV1,
 			primaryKey: true,
+			allowNull: false,
+			unique: true,
+		},
+		orderId: {
+			type: DataTypes.STRING,
 			allowNull: false,
 			unique: true,
 		},
 		address: {
 			type: DataTypes.STRING,
 		},
+
 		city: { type: DataTypes.STRING },
 		postalCode: { type: DataTypes.DOUBLE },
 		country: { type: DataTypes.STRING },
