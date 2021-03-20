@@ -7,115 +7,141 @@ import OrderItem from '../models/OrderItem.js'
 import orderRoute from '../routes/orderRoutes.js'
 import dotenv from 'dotenv'
 import nodemailer from 'nodemailer'
+import { google } from 'googleapis'
 
 dotenv.config()
 
-let transport = nodemailer.createTransport({
-	service: 'gmail',
-	auth: {
-		user: process.env.email,
-		pass: process.env.emailPassword,
-	},
-})
+const CLIENT_ID =
+	'633356195454-avukd8i51gma9pmvrj15fl54vbdiilbd.apps.googleusercontent.com'
+const CLIENT_SECRET = 'Wauv12ee4Miw6uwz5hlyQcPY'
+const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
+const REFRESH_TOKEN =
+	'1//049uy_9zPHNr8CgYIARAAGAQSNwF-L9IrJQ-1z94jjXyQEgfFmJDp5sqKkN39ww6KJKBNmK2qCI3VAkmJrIoYN8slTm4TJDz60n0'
+
+const oAuth2Client = new google.auth.OAuth2(
+	CLIENT_ID,
+	CLIENT_SECRET,
+	REDIRECT_URI
+)
+
+oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN })
 
 // Create Order
 // POST /api/orders
 // Private
 
 export const addOrderItems = asyncHandler(async (req, res) => {
-	const {
-		cartItems,
-		shippingAddress,
-		paymentMethod,
-		itemsPrice,
-		taxPrice,
-		orderType,
-		shippingPrice,
-		totalPrice,
-	} = req.body
-
-	if (cartItems && cartItems.length === 0) {
-		res.status(400)
-		throw new Error('No Order Items')
-	} else {
-		let numberOfOrders = await Orders.count()
-		numberOfOrders++
-
-		let numberOfOrdersString = String(numberOfOrders)
-
-		if (numberOfOrdersString.length === 5) {
-			numberOfOrdersString = '0' + numberOfOrdersString
-		} else if (numberOfOrdersString.length === 4) {
-			numberOfOrdersString = '00' + numberOfOrdersString
-		} else if (numberOfOrdersString.length === 3) {
-			numberOfOrdersString = '000' + numberOfOrdersString
-		} else if (numberOfOrdersString.length === 2) {
-			numberOfOrdersString = '0000' + numberOfOrdersString
-		} else if (numberOfOrdersString.length === 1) {
-			numberOfOrdersString = '00000' + numberOfOrdersString
-		}
-
-		const date = new Date()
-		const months = [
-			'JAN',
-			'FEB',
-			'MAR',
-			'APR',
-			'JUN',
-			'JUL',
-			'AUG',
-			'SEP',
-			'OCT',
-			'NOV',
-			'DEC',
-		]
-		const month = months[date.getMonth()]
-		const orderID = 'MS' + month + numberOfOrdersString
-
-		const newOrder = await req.user.createOrder({
-			orderId: orderID,
-			address: shippingAddress.address,
-			city: shippingAddress.city,
-			postalCode: shippingAddress.postalCode,
-			country: shippingAddress.country,
+	try {
+		const {
+			cartItems,
+			shippingAddress,
 			paymentMethod,
 			itemsPrice,
 			taxPrice,
+			orderType,
 			shippingPrice,
 			totalPrice,
-			orderType,
-		})
+		} = req.body
 
-		cartItems.map(async (item) => {
-			const productItem = await Products.findByPk(item.id)
-			const addedProducts = await newOrder.addProducts(productItem, {
-				through: { quantity: item.quantity, size: item.size },
-			})
-		})
+		if (cartItems && cartItems.length === 0) {
+			res.status(400)
+			throw new Error('No Order Items')
+		} else {
+			let numberOfOrders = await Orders.count()
+			numberOfOrders++
 
-		const message = {
-			from: 'crapbag0086@gmail.com', // Sender address
-			to: req.user.email, // List of recipients
-			subject: `Your MyShop Order #${orderID}`, // Subject line
-			// text: 'Thank you so much!', // Plain text body
-			html: `
-			<h4>Hello ${req.user.name}</h4>
-			<p>Thank you so much for choosing us.</p>
-			<p>We have received your order.</p>
-			<p>Order ID <strong>#${orderID}</strong></p>
-			<p>Thank you!</p>
-			`,
-		}
+			let numberOfOrdersString = String(numberOfOrders)
 
-		transport.sendMail(message, function (err, info) {
-			if (err) {
-				console.log(err)
-			} else {
-				console.log(info)
+			if (numberOfOrdersString.length === 5) {
+				numberOfOrdersString = '0' + numberOfOrdersString
+			} else if (numberOfOrdersString.length === 4) {
+				numberOfOrdersString = '00' + numberOfOrdersString
+			} else if (numberOfOrdersString.length === 3) {
+				numberOfOrdersString = '000' + numberOfOrdersString
+			} else if (numberOfOrdersString.length === 2) {
+				numberOfOrdersString = '0000' + numberOfOrdersString
+			} else if (numberOfOrdersString.length === 1) {
+				numberOfOrdersString = '00000' + numberOfOrdersString
 			}
-		})
 
-		res.send(newOrder)
+			const date = new Date()
+			const months = [
+				'JAN',
+				'FEB',
+				'MAR',
+				'APR',
+				'JUN',
+				'JUL',
+				'AUG',
+				'SEP',
+				'OCT',
+				'NOV',
+				'DEC',
+			]
+			const month = months[date.getMonth()]
+			const orderID = 'MS' + month + numberOfOrdersString
+
+			const newOrder = await req.user.createOrder({
+				orderId: orderID,
+				address: shippingAddress.address,
+				city: shippingAddress.city,
+				postalCode: shippingAddress.postalCode,
+				country: shippingAddress.country,
+				paymentMethod,
+				itemsPrice,
+				taxPrice,
+				shippingPrice,
+				totalPrice,
+				orderType,
+			})
+
+			cartItems.map(async (item) => {
+				const productItem = await Products.findByPk(item.id)
+				const addedProducts = await newOrder.addProducts(productItem, {
+					through: { quantity: item.quantity, size: item.size },
+				})
+			})
+
+			const message = {
+				from: 'crapbag0086@gmail.com', // Sender address
+				to: req.user.email, // List of recipients
+				subject: `Your MyShop Order #${orderID}`, // Subject line
+				// text: 'Thank you so much!', // Plain text body
+				html: `
+				<h4>Hello ${req.user.name}</h4>
+				<p>Thank you so much for choosing us.</p>
+				<p>We have received your order.</p>
+				<p>Order ID <strong>#${orderID}</strong></p>
+				<p>Thank you!</p>
+				`,
+			}
+
+			const accessToken = await oAuth2Client.getAccessToken()
+
+			let transport = nodemailer.createTransport({
+				service: 'gmail',
+				auth: {
+					type: 'OAuth2',
+					user: 'crapbag0086@gmail.com',
+					clientId: CLIENT_ID,
+					clientSecret: CLIENT_SECRET,
+					refreshToken: REFRESH_TOKEN,
+					accessToken: accessToken,
+				},
+			})
+
+			transport.sendMail(message, function (err, info) {
+				if (err) {
+					console.log(err)
+				} else {
+					console.log(info)
+				}
+			})
+
+			res.send(newOrder)
+		}
+	} catch (error) {
+		console.log(error)
 	}
 })
 
@@ -206,6 +232,21 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
 			<p>We have received your payment for Order ID <strong>#${order.orderId}</strong></p>
 			<p>Thank you!</p>`,
 		}
+
+		const accessToken = await oAuth2Client.getAccessToken()
+
+		let transport = nodemailer.createTransport({
+			service: 'gmail',
+			auth: {
+				type: 'OAuth2',
+				user: 'crapbag0086@gmail.com',
+				clientId: CLIENT_ID,
+				clientSecret: CLIENT_SECRET,
+				refreshToken: REFRESH_TOKEN,
+				accessToken: accessToken,
+			},
+		})
+
 		transport.sendMail(message, function (err, info) {
 			if (err) {
 				console.log(err)
@@ -213,7 +254,7 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
 				console.log(info)
 			}
 		})
-		console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+
 		res.json(updatedOrder)
 	} else {
 		res.status(404)
@@ -248,6 +289,20 @@ export const updateOrderToDelivered = asyncHandler(async (req, res) => {
 				<p>Thank you!</p>
 				`,
 		}
+		const accessToken = await oAuth2Client.getAccessToken()
+
+		let transport = nodemailer.createTransport({
+			service: 'gmail',
+			auth: {
+				type: 'OAuth2',
+				user: 'crapbag0086@gmail.com',
+				clientId: CLIENT_ID,
+				clientSecret: CLIENT_SECRET,
+				refreshToken: REFRESH_TOKEN,
+				accessToken: accessToken,
+			},
+		})
+
 		transport.sendMail(message, function (err, info) {
 			if (err) {
 				console.log(err)
