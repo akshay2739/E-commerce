@@ -5,16 +5,16 @@ import colors from 'colors'
 import User from '../models/UserModel.js'
 import OrderItem from '../models/OrderItem.js'
 import orderRoute from '../routes/orderRoutes.js'
-
+import dotenv from 'dotenv'
 import nodemailer from 'nodemailer'
 
+dotenv.config()
+
 let transport = nodemailer.createTransport({
-	// host: 'smtp.mailtrap.io',
-	// port: 2525,
 	service: 'gmail',
 	auth: {
-		user: 'crapbag0086@gmail.com',
-		pass: 'xWO33CgnPXJN',
+		user: process.env.email,
+		pass: process.env.emailPassword,
 	},
 })
 
@@ -52,12 +52,7 @@ export const addOrderItems = asyncHandler(async (req, res) => {
 		} else if (numberOfOrdersString.length === 2) {
 			numberOfOrdersString = '0000' + numberOfOrdersString
 		} else if (numberOfOrdersString.length === 1) {
-			console.log(`AAAAAAAAAA ${numberOfOrdersString.length}`.green)
-			try {
-				numberOfOrdersString = '00000' + numberOfOrdersString
-			} catch (error) {
-				console.log(error)
-			}
+			numberOfOrdersString = '00000' + numberOfOrdersString
 		}
 
 		const date = new Date()
@@ -76,9 +71,9 @@ export const addOrderItems = asyncHandler(async (req, res) => {
 		]
 		const month = months[date.getMonth()]
 		const orderID = 'MS' + month + numberOfOrdersString
-		console.log(`${orderID}}`.bgGreen)
+
 		const newOrder = await req.user.createOrder({
-			orderId: `MS${month}${numberOfOrdersString}`,
+			orderId: orderID,
 			address: shippingAddress.address,
 			city: shippingAddress.city,
 			postalCode: shippingAddress.postalCode,
