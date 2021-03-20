@@ -9,11 +9,12 @@ import orderRoute from '../routes/orderRoutes.js'
 import nodemailer from 'nodemailer'
 
 let transport = nodemailer.createTransport({
-	host: 'smtp.mailtrap.io',
-	port: 2525,
+	// host: 'smtp.mailtrap.io',
+	// port: 2525,
+	service: 'gmail',
 	auth: {
-		user: '83b38c606ad862',
-		pass: '8d7a41dc5b8029',
+		user: 'crapbag0086@gmail.com',
+		pass: 'xWO33CgnPXJN',
 	},
 })
 
@@ -74,8 +75,8 @@ export const addOrderItems = asyncHandler(async (req, res) => {
 			'DEC',
 		]
 		const month = months[date.getMonth()]
-
-		console.log(`${numberOfOrdersString}`.bgGreen)
+		const orderID = 'MS' + month + numberOfOrdersString
+		console.log(`${orderID}}`.bgGreen)
 		const newOrder = await req.user.createOrder({
 			orderId: `MS${month}${numberOfOrdersString}`,
 			address: shippingAddress.address,
@@ -95,6 +96,28 @@ export const addOrderItems = asyncHandler(async (req, res) => {
 			const addedProducts = await newOrder.addProducts(productItem, {
 				through: { quantity: item.quantity, size: item.size },
 			})
+		})
+
+		const message = {
+			from: 'crapbag0086@gmail.com', // Sender address
+			to: req.user.email, // List of recipients
+			subject: `Your MyShop Order #${orderID}`, // Subject line
+			// text: 'Thank you so much!', // Plain text body
+			html: `
+			<h4>Hello ${req.user.name}</h4>
+			<p>Thank you so much for choosing us.</p>
+			<p>We have received your order.</p>
+			<p>Order ID <strong>#${orderID}</strong></p>
+			<p>Thank you!</p>
+			`,
+		}
+
+		transport.sendMail(message, function (err, info) {
+			if (err) {
+				console.log(err)
+			} else {
+				console.log(info)
+			}
 		})
 
 		res.send(newOrder)
@@ -147,7 +170,6 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
 
 		orderItems.map(async (orderItem) => {
 			console.log('ORDER'.green)
-			console.log(`${orderItem.productId}`.bgGreen)
 			const productId = orderItem.productId
 			const product = await Products.findByPk(productId)
 			switch (orderItem.size) {
@@ -179,10 +201,15 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
 		})
 
 		const message = {
-			from: 'akshaypatel2739@gmail.com', // Sender address
-			to: 'akshaypatel3927@gmail.com', // List of recipients
-			subject: 'Design Your Model S | Tesla', // Subject line
-			text: 'Have the most fun you can in a car. Get your Tesla today!', // Plain text body
+			from: 'crapbag0086@gmail.com', // Sender address
+			to: req.user.email, // List of recipients
+			subject: `MyShop : Received payment for Order #${order.orderId}`, // Subject line
+			// text: 'Thank you so much!', // Plain text body
+			html: `
+			<h4>Hello ${req.user.name}</h4>
+			<p>Thank you so much for choosing us.</p>
+			<p>We have received your payment for Order ID <strong>#${order.orderId}</strong></p>
+			<p>Thank you!</p>`,
 		}
 		transport.sendMail(message, function (err, info) {
 			if (err) {
@@ -191,7 +218,7 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
 				console.log(info)
 			}
 		})
-
+		console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
 		res.json(updatedOrder)
 	} else {
 		res.status(404)
@@ -205,11 +232,35 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
 export const updateOrderToDelivered = asyncHandler(async (req, res) => {
 	const order = await Orders.findByPk(req.params.id)
 
+	const orderUser = await User.findByPk(order.userId)
+	const orderUserEmail = orderUser.email
 	if (order && req.user.role === 'my-shop-admin') {
 		order.isDelivered = true
 		order.deliveredAt = Date.now()
 
 		const updatedOrder = await order.save()
+
+		const message = {
+			from: 'crapbag0086@gmail.com', // Sender address
+			to: orderUserEmail, // List of recipients
+			subject: `MyShop : Delivered Order #${order.orderId}`, // Subject line
+			// text: 'Thank you so much!', // Plain text body
+			html: `
+				<h4>Hello ${orderUser.name}</h4>
+				<p>Thank you so much for choosing us.</p>
+				<p>Order ID <strong>#${order.orderId}</strong></p>
+				<p>Your order is delivered.</p>
+				<p>Thank you!</p>
+				`,
+		}
+		transport.sendMail(message, function (err, info) {
+			if (err) {
+				console.log(err)
+			} else {
+				console.log(info)
+			}
+		})
+
 		res.json(updatedOrder)
 	} else {
 		res.status(404)
