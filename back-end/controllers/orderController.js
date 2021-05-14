@@ -18,13 +18,13 @@ const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
 const REFRESH_TOKEN =
 	'1//04VzyLX7GkqbvCgYIARAAGAQSNwF-L9IrBigmP-p3dQRRZrTa13jdyUhhkqjvPy0RpEpX7kFM6PvdRSG_em6EUuyxbpX0nzaS8oQ'
 
-const oAuth2Client = new google.auth.OAuth2(
-	CLIENT_ID,
-	CLIENT_SECRET,
-	REDIRECT_URI
-)
-
-oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN })
+let oAuth2Client
+try {
+	oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)
+	oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN })
+} catch (error) {
+	console.log(error)
+}
 
 // Create Order
 // POST /api/orders
@@ -116,28 +116,31 @@ export const addOrderItems = asyncHandler(async (req, res) => {
 				`,
 			}
 
-			const accessToken = await oAuth2Client.getAccessToken()
+			try {
+				const accessToken = await oAuth2Client.getAccessToken()
 
-			let transport = nodemailer.createTransport({
-				service: 'gmail',
-				auth: {
-					type: 'OAuth2',
-					user: 'crapbag0086@gmail.com',
-					clientId: CLIENT_ID,
-					clientSecret: CLIENT_SECRET,
-					refreshToken: REFRESH_TOKEN,
-					accessToken: accessToken,
-				},
-			})
+				let transport = nodemailer.createTransport({
+					service: 'gmail',
+					auth: {
+						type: 'OAuth2',
+						user: 'crapbag0086@gmail.com',
+						clientId: CLIENT_ID,
+						clientSecret: CLIENT_SECRET,
+						refreshToken: REFRESH_TOKEN,
+						accessToken: accessToken,
+					},
+				})
 
-			transport.sendMail(message, function (err, info) {
-				if (err) {
-					console.log(err)
-				} else {
-					console.log(info)
-				}
-			})
-
+				transport.sendMail(message, function (err, info) {
+					if (err) {
+						console.log(err)
+					} else {
+						console.log(info)
+					}
+				})
+			} catch (error) {
+				console.log(error)
+			}
 			res.send(newOrder)
 		}
 	} catch (error) {
@@ -232,28 +235,6 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
 			<p>We have received your payment for Order ID <strong>#${order.orderId}</strong></p>
 			<p>Thank you!</p>`,
 		}
-
-		const accessToken = await oAuth2Client.getAccessToken()
-
-		let transport = nodemailer.createTransport({
-			service: 'gmail',
-			auth: {
-				type: 'OAuth2',
-				user: 'crapbag0086@gmail.com',
-				clientId: CLIENT_ID,
-				clientSecret: CLIENT_SECRET,
-				refreshToken: REFRESH_TOKEN,
-				accessToken: accessToken,
-			},
-		})
-
-		transport.sendMail(message, function (err, info) {
-			if (err) {
-				console.log(err)
-			} else {
-				console.log(info)
-			}
-		})
 
 		res.json(updatedOrder)
 	} else {
