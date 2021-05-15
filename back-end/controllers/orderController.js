@@ -11,12 +11,10 @@ import { google } from 'googleapis'
 
 dotenv.config()
 
-const CLIENT_ID =
-	'633356195454-avukd8i51gma9pmvrj15fl54vbdiilbd.apps.googleusercontent.com'
-const CLIENT_SECRET = 'Wauv12ee4Miw6uwz5hlyQcPY'
-const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
-const REFRESH_TOKEN =
-	'1//04B22KFM30jMqCgYIARAAGAQSNwF-L9Irq5HjnCSBY3JUe9oPgx7BHzop5_sEOWQzoeP9NNw0y_LXGbjnqvugVvy092Dg3ObJgSE'
+const CLIENT_ID = process.env.CLIENT_ID
+const CLIENT_SECRET = process.env.CLIENT_SECRET
+const REDIRECT_URI = process.env.REDIRECT_URI
+const REFRESH_TOKEN = process.env.REFRESH_TOKEN
 
 let oAuth2Client
 try {

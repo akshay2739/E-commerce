@@ -13,11 +13,11 @@ if (process.env.NODE_ENV === 'development') {
 	})
 } else {
 	sequelize = new Sequelize(
-		'dfodanoueijrof',
-		'joijicpioevxex',
-		'f4667ba139d3c0b6394400a79e9af10720b9f0d4a5967465243647a0ff5d7b1a',
+		process.env.db,
+		process.env.userName,
+		process.env.password,
 		{
-			host: 'ec2-54-156-53-71.compute-1.amazonaws.com',
+			host: process.env.host,
 			port: 5432,
 			dialect: 'postgres',
 			dialectOptions: {

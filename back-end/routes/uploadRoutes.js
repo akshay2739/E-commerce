@@ -4,6 +4,9 @@ import path from 'path'
 import 'colors'
 import aws from 'aws-sdk'
 import multerS3 from 'multer-s3'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const uploadRouter = express.Router()
 
@@ -69,14 +72,14 @@ const checkFileType = (file, cb) => {
 // })
 
 const s3 = new aws.S3({
-	accessKeyId: 'AKIAYIPB5AHSJSHOJC5C',
-	secretAccessKey: '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',
+	accessKeyId: process.env.accessKeyId,
+	secretAccessKey: process.env.secretAccessKey,
 })
 
 const upload = multer({
 	storage: multerS3({
 		s3: s3,
-		bucket: 'my-shop27',
+		bucket: process.env.awsBucketName,
 		acl: 'public-read',
 		metadata: function (req, file, cb) {
 			console.log('CHECK 2')
