@@ -65,8 +65,8 @@ User.hasMany(Orders)
 Orders.belongsToMany(Products, { through: OrderItem })
 
 sequelize
-	.sync({ force: true })
-	// .sync()
+	// .sync({ force: true })
+	.sync()
 	.then((result) => {
 		console.log('Database is connected')
 		app.listen(
