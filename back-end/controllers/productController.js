@@ -65,9 +65,9 @@ export const getProductsByType = asyncHandler(async (req, res) => {
 
 	const type = req.params.type
 
-	const count = await Products.count({ where: { category: type } })
+	const count = await Products.count({ where: { gender: type } })
 	const products = await Products.findAll({
-		where: { category: type },
+		where: { gender: type },
 		limit: pageSize,
 		offset: pageSize * (page - 1),
 	})
@@ -126,11 +126,18 @@ export const createProduct = asyncHandler(async (req, res) => {
 		category: 'men',
 		description: 'description',
 		size: 'S',
-		countInStock_S: 0,
-		countInStock_M: 0,
-		countInStock_L: 0,
-		countInStock_XL: 0,
-		countInStock_XXL: 0,
+		gender: 'men',
+		countInStock_S_34: 0,
+		countInStock_M_36: 0,
+		countInStock_L_38: 0,
+		countInStock_XL_40: 0,
+		countInStock_2XL_42: 0,
+		countInStock_3XL_44: 0,
+		countInStock_4XL_46: 0,
+		countInStock_5XL_48: 0,
+		countInStock_6XL_50: 0,
+		countInStock_52: 0,
+		countInStock_54: 0,
 	}
 
 	const createdProduct = await Products.create(product)
@@ -148,13 +155,20 @@ export const UpdateProduct = asyncHandler(async (req, res) => {
 		price,
 		image,
 		category,
+		gender,
 		description,
 		size,
-		countInStock_S,
-		countInStock_M,
-		countInStock_L,
-		countInStock_XL,
-		countInStock_XXL,
+		countInStock_S_34,
+		countInStock_M_36,
+		countInStock_L_38,
+		countInStock_XL_40,
+		countInStock_2XL_42,
+		countInStock_3XL_44,
+		countInStock_4XL_46,
+		countInStock_5XL_48,
+		countInStock_6XL_50,
+		countInStock_52,
+		countInStock_54,
 	} = req.body.product
 
 	const product = await Products.findByPk(req.params.id)
@@ -163,14 +177,21 @@ export const UpdateProduct = asyncHandler(async (req, res) => {
 		product.name = name
 		product.price = price
 		product.image = image
+		product.gender = gender
 		product.category = category
 		product.description = description
 		product.size = size
-		product.countInStock_L = countInStock_L
-		product.countInStock_M = countInStock_M
-		product.countInStock_S = countInStock_S
-		product.countInStock_XL = countInStock_XL
-		product.countInStock_XXL = countInStock_XXL
+		product.countInStock_L_38 = countInStock_L_38
+		product.countInStock_M_36 = countInStock_M_36
+		product.countInStock_S_34 = countInStock_S_34
+		product.countInStock_XL_40 = countInStock_XL_40
+		product.countInStock_2XL_42 = countInStock_2XL_42
+		product.countInStock_3XL_44 = countInStock_3XL_44
+		product.countInStock_4XL_46 = countInStock_4XL_46
+		product.countInStock_5XL_48 = countInStock_5XL_48
+		product.countInStock_6XL_50 = countInStock_6XL_50
+		product.countInStock_52 = countInStock_52
+		product.countInStock_54 = countInStock_54
 
 		const updatedProduct = await product.save()
 		res.json(updatedProduct)

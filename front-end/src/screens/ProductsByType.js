@@ -38,7 +38,6 @@ const ProductByType = ({ match, history }) => {
 
 	const handleFilterSubmit = (e) => {
 		e.preventDefault()
-		console.log('hello')
 	}
 
 	return (

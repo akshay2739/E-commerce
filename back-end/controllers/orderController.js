@@ -196,23 +196,23 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
 			const product = await Products.findByPk(productId)
 			switch (orderItem.size) {
 				case 'S':
-					product.countInStock_S -= orderItem.quantity
+					product.countInStock_S_34 -= orderItem.quantity
 					break
 
 				case 'M':
-					product.countInStock_M -= orderItem.quantity
+					product.countInStock_M_36 -= orderItem.quantity
 					break
 
 				case 'L':
-					product.countInStock_L -= orderItem.quantity
+					product.countInStock_L_38 -= orderItem.quantity
 					break
 
 				case 'XL':
-					product.countInStock_XL -= orderItem.quantity
+					product.countInStock_XL_40 -= orderItem.quantity
 					break
 
 				case 'XXL':
-					product.countInStock_XXL -= orderItem.quantity
+					product.countInStock_2XL_42 -= orderItem.quantity
 					break
 
 				default:

@@ -21,6 +21,7 @@ const ProductScreen = ({ history, match }) => {
 
 	const { loading, product, error } = productResponse
 
+	console.log(product)
 	useEffect(() => {
 		window.scrollTo(0, 0)
 		dispatch(productDetail(match.params.id))
@@ -53,28 +54,94 @@ const ProductScreen = ({ history, match }) => {
 	const handleSizeChange = (e) => {
 		switch (e.target.value) {
 			case 's':
-				setselectedSize('S')
-				setSelectedStock(product.countInStock_S)
+				setselectedSize(
+					product.category === 'jackets' || product.category === 'suits'
+						? '34'
+						: 'S'
+				)
+				setSelectedStock(product.countInStock_S_34)
 				break
 
 			case 'm':
-				setselectedSize('M')
-				setSelectedStock(product.countInStock_M)
+				setselectedSize(
+					product.category === 'jackets' || product.category === 'suits'
+						? '36'
+						: 'M'
+				)
+				setSelectedStock(product.countInStock_M_36)
 				break
 
 			case 'l':
-				setselectedSize('L')
-				setSelectedStock(product.countInStock_L)
+				setselectedSize(
+					product.category === 'jackets' || product.category === 'suits'
+						? '38'
+						: 'L'
+				)
+				setSelectedStock(product.countInStock_L_38)
 				break
 
 			case 'xl':
-				setselectedSize('XL')
-				setSelectedStock(product.countInStock_XL)
+				setselectedSize(
+					product.category === 'jackets' || product.category === 'suits'
+						? '40'
+						: 'XL'
+				)
+				setSelectedStock(product.countInStock_XL_40)
 				break
 
 			case 'xxl':
-				setselectedSize('XXL')
-				setSelectedStock(product.countInStock_XXL)
+				setselectedSize(
+					product.category === 'jackets' || product.category === 'suits'
+						? '42'
+						: '2XL'
+				)
+				setSelectedStock(product.countInStock_2XL_42)
+				break
+
+			case '3xl':
+				setselectedSize(
+					product.category === 'jackets' || product.category === 'suits'
+						? '44'
+						: '3XL'
+				)
+				setSelectedStock(product.countInStock_3XL_44)
+				break
+
+			case '4xl':
+				setselectedSize(
+					product.category === 'jackets' || product.category === 'suits'
+						? '46'
+						: '4XL'
+				)
+				setSelectedStock(product.countInStock_4XL_46)
+				break
+
+			case '5xl':
+				setselectedSize(
+					product.category === 'jackets' || product.category === 'suits'
+						? '48'
+						: '5XL'
+				)
+				setSelectedStock(product.countInStock_5XL_48)
+				break
+
+			case '6xl':
+				setselectedSize(
+					product.category === 'jackets' || product.category === 'suits'
+						? '50'
+						: '6XL'
+				)
+				setSelectedStock(product.countInStock_6XL_50)
+				break
+
+			case '52':
+				setselectedSize('52')
+				setSelectedStock(product.countInStock_52)
+				break
+
+			case '54':
+				setselectedSize('54')
+				setSelectedStock(product.countInStock_54)
 				break
 
 			case '0':
@@ -113,6 +180,14 @@ const ProductScreen = ({ history, match }) => {
 							<ListGroup.Item>
 								Description : <strong> {product.description}</strong>
 							</ListGroup.Item>
+							{product.category === 'suits' && selectedSize ? (
+								<ListGroup.Item>
+									<ul>
+										<li>Blazer size : {selectedSize}</li>
+										<li>Pants size : {parseInt(selectedSize) - 6}</li>
+									</ul>
+								</ListGroup.Item>
+							) : null}
 							<ListGroup.Item>
 								<strong className='text-danger'>
 									No Refunds. Only Exchange within 15 days.
@@ -148,11 +223,68 @@ const ProductScreen = ({ history, match }) => {
 													onChange={(e) => handleSizeChange(e)}
 												>
 													<option value='0'>Size</option>
-													<option value='s'>S</option>
-													<option value='m'>M</option>
-													<option value='l'>L</option>
-													<option value='xl'>XL</option>
-													<option value='xxl'>XXL</option>
+													<option value='s'>
+														{product.category === 'jackets' ||
+														product.category === 'suits'
+															? '34'
+															: 'S'}
+													</option>
+													<option value='m'>
+														{product.category === 'jackets' ||
+														product.category === 'suits'
+															? '36'
+															: 'M'}
+													</option>
+													<option value='l'>
+														{product.category === 'jackets' ||
+														product.category === 'suits'
+															? '38'
+															: 'L'}
+													</option>
+													<option value='xl'>
+														{product.category === 'jackets' ||
+														product.category === 'suits'
+															? '40'
+															: 'XL'}
+													</option>
+													<option value='xxl'>
+														{product.category === 'jackets' ||
+														product.category === 'suits'
+															? '42'
+															: '2XL'}
+													</option>
+													<option value='3xl'>
+														{product.category === 'jackets' ||
+														product.category === 'suits'
+															? '44'
+															: '3XL'}
+													</option>
+													<option value='4xl'>
+														{product.category === 'jackets' ||
+														product.category === 'suits'
+															? '46'
+															: '4XL'}
+													</option>
+													<option value='5xl'>
+														{product.category === 'jackets' ||
+														product.category === 'suits'
+															? '48'
+															: '5XL'}
+													</option>
+													<option value='6xl'>
+														{product.category === 'jackets' ||
+														product.category === 'suits'
+															? '50'
+															: '6XL'}
+													</option>
+													{product.category === 'jackets' ||
+													product.category === 'suits' ? (
+														<option value='52'>52</option>
+													) : null}
+													{product.category === 'jackets' ||
+													product.category === 'suits' ? (
+														<option value='54'>54</option>
+													) : null}
 												</Form.Control>
 											</Form.Group>
 										</Col>

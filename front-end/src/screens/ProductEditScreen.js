@@ -15,14 +15,21 @@ const ProductEditScreen = ({ match, history }) => {
 	const [name, setName] = useState('')
 	const [price, setPrice] = useState(0)
 	const [image, setImage] = useState('')
-	const [category, setCategory] = useState('mens')
+	const [selectedGender, setSelectedGender] = useState('men')
+	const [selectedcategory, setSelectedcategory] = useState('shirts')
 	const [size, setSize] = useState('')
 	const [description, setDescription] = useState('')
-	const [countInStock_S, setCountInStock_S] = useState(0)
-	const [countInStock_M, setCountInStock_M] = useState(0)
-	const [countInStock_L, setCountInStock_L] = useState(0)
-	const [countInStock_XL, setCountInStock_XL] = useState(0)
-	const [countInStock_XXL, setCountInStock_XXL] = useState(0)
+	const [countInStock_S_34, setCountInStock_S] = useState(0)
+	const [countInStock_M_36, setCountInStock_M] = useState(0)
+	const [countInStock_L_38, setCountInStock_L] = useState(0)
+	const [countInStock_XL_40, setCountInStock_XL] = useState(0)
+	const [countInStock_2XL_42, setCountInStock_XXL] = useState(0)
+	const [countInStock_3XL_44, setCountInStock_3XL_44] = useState(0)
+	const [countInStock_4XL_46, setCountInStock_4XL_46] = useState(0)
+	const [countInStock_5XL_48, setCountInStock_5XL_48] = useState(0)
+	const [countInStock_6XL_50, setCountInStock_6XL_50] = useState(0)
+	const [countInStock_52, setCountInStock_52] = useState(0)
+	const [countInStock_54, setCountInStock_54] = useState(0)
 	const [uploading, setUploading] = useState(false)
 
 	const dispatch = useDispatch()
@@ -49,14 +56,21 @@ const ProductEditScreen = ({ match, history }) => {
 				setName(product.name)
 				setPrice(product.price)
 				setImage(product.image)
-				setCategory(product.category)
+				setSelectedGender(product.gender)
+				setSelectedcategory(product.category)
 				setDescription(product.description)
 				setSize(product.size)
-				setCountInStock_L(product.countInStock_L)
-				setCountInStock_S(product.countInStock_S)
-				setCountInStock_M(product.countInStock_M)
-				setCountInStock_XL(product.countInStock_XL)
-				setCountInStock_XXL(product.countInStock_XXL)
+				setCountInStock_L(product.countInStock_L_38)
+				setCountInStock_S(product.countInStock_S_34)
+				setCountInStock_M(product.countInStock_M_36)
+				setCountInStock_XL(product.countInStock_XL_40)
+				setCountInStock_XXL(product.countInStock_2XL_42)
+				setCountInStock_3XL_44(product.countInStock_3XL_44)
+				setCountInStock_4XL_46(product.countInStock_4XL_46)
+				setCountInStock_5XL_48(product.countInStock_5XL_48)
+				setCountInStock_6XL_50(product.countInStock_6XL_50)
+				setCountInStock_52(product.countInStock_52)
+				setCountInStock_54(product.countInStock_54)
 			}
 		}
 	}, [product, dispatch, productID, successUpdate, history])
@@ -84,6 +98,14 @@ const ProductEditScreen = ({ match, history }) => {
 		}
 	}
 
+	const handleCategoryChange = (e) => {
+		setSelectedcategory(e.target.value)
+	}
+
+	const handleGenderChange = (e) => {
+		setSelectedGender(e.target.value)
+	}
+
 	const submitHandler = (e) => {
 		e.preventDefault()
 		dispatch(
@@ -92,14 +114,21 @@ const ProductEditScreen = ({ match, history }) => {
 				name,
 				price,
 				image,
-				category,
+				category: selectedcategory,
 				size,
 				description,
-				countInStock_S,
-				countInStock_M,
-				countInStock_XL,
-				countInStock_L,
-				countInStock_XXL,
+				gender: selectedGender,
+				countInStock_S_34,
+				countInStock_M_36,
+				countInStock_XL_40,
+				countInStock_L_38,
+				countInStock_2XL_42,
+				countInStock_3XL_44,
+				countInStock_4XL_46,
+				countInStock_5XL_48,
+				countInStock_6XL_50,
+				countInStock_52,
+				countInStock_54,
 			})
 		)
 	}
@@ -120,7 +149,7 @@ const ProductEditScreen = ({ match, history }) => {
 				) : (
 					<Form onSubmit={submitHandler}>
 						<Form.Group controlId='name'>
-							<Form.Label>Ener Name</Form.Label>
+							<Form.Label>Enter Name</Form.Label>
 							<Form.Control
 								type='name'
 								placeholder='Enter name'
@@ -130,16 +159,33 @@ const ProductEditScreen = ({ match, history }) => {
 							></Form.Control>
 						</Form.Group>
 
-						<Form.Group controlId='Price'>
-							<Form.Label>Enter Price</Form.Label>
-							<Form.Control
-								type='text'
-								placeholder='Price'
-								value={price}
-								required
-								onChange={(e) => setPrice(e.target.value)}
-							></Form.Control>
-						</Form.Group>
+						<Row>
+							<Col md={6}>
+								<Form.Group controlId='Price'>
+									<Form.Label>Enter Price</Form.Label>
+									<Form.Control
+										type='text'
+										placeholder='Price'
+										value={price}
+										required
+										onChange={(e) => setPrice(e.target.value)}
+									></Form.Control>
+								</Form.Group>
+							</Col>
+							<Col md={6}>
+								<Form.Group controlId='gender'>
+									<Form.Label>Select Gender</Form.Label>
+									<Form.Control
+										as='select'
+										size='md'
+										onChange={(e) => handleGenderChange(e)}
+									>
+										<option value='men'>Men</option>
+										<option value='women'>Women</option>
+									</Form.Control>
+								</Form.Group>
+							</Col>
+						</Row>
 
 						<Form.Group controlId='addimage'>
 							<Form.Label>Add Image</Form.Label>
@@ -164,21 +210,28 @@ const ProductEditScreen = ({ match, history }) => {
 								<Form.Group controlId='category'>
 									<Form.Label>Select Category</Form.Label>
 									<Form.Control
-										type='text'
-										placeholder='Category'
-										value={category}
-										required
-										onChange={(e) => setCategory(e.target.value)}
-									></Form.Control>
+										as='select'
+										size='md'
+										onChange={(e) => handleCategoryChange(e)}
+									>
+										<option value='shirts'>Shirts</option>
+										<option value='suits'>Suits</option>
+										<option value='jackets'>Jackets</option>
+									</Form.Control>
 								</Form.Group>
 							</Col>
 							<Col md={6}>
-								<Form.Group controlId='countInStock_S'>
-									<Form.Label>Stock of S</Form.Label>
+								<Form.Group controlId='countInStock_S_34'>
+									<Form.Label>
+										Stock of{' '}
+										{selectedcategory === 'jackets' ||
+										selectedcategory === 'suits'
+											? '34'
+											: 'S'}
+									</Form.Label>
 									<Form.Control
 										type='text'
-										placeholder='Enter Stock of S'
-										value={countInStock_S}
+										value={countInStock_S_34}
 										required
 										onChange={(e) => setCountInStock_S(e.target.value)}
 									></Form.Control>
@@ -188,24 +241,34 @@ const ProductEditScreen = ({ match, history }) => {
 
 						<Row>
 							<Col md={6}>
-								<Form.Group controlId='countInStock_M'>
-									<Form.Label>Stock of M</Form.Label>
+								<Form.Group controlId='countInStock_M_36'>
+									<Form.Label>
+										Stock of{' '}
+										{selectedcategory === 'jackets' ||
+										selectedcategory === 'suits'
+											? '36'
+											: 'M'}
+									</Form.Label>
 									<Form.Control
 										type='text'
-										placeholder='Enter Stock of M'
-										value={countInStock_M}
+										value={countInStock_M_36}
 										required
 										onChange={(e) => setCountInStock_M(e.target.value)}
 									></Form.Control>
 								</Form.Group>
 							</Col>
 							<Col md={6}>
-								<Form.Group controlId='countInStock_L'>
-									<Form.Label>Stock of L</Form.Label>
+								<Form.Group controlId='countInStock_L_38'>
+									<Form.Label>
+										Stock of{' '}
+										{selectedcategory === 'jackets' ||
+										selectedcategory === 'suits'
+											? '38'
+											: 'L'}
+									</Form.Label>
 									<Form.Control
 										type='text'
-										placeholder='Enter Stock of L'
-										value={countInStock_L}
+										value={countInStock_L_38}
 										required
 										onChange={(e) => setCountInStock_L(e.target.value)}
 									></Form.Control>
@@ -214,31 +277,148 @@ const ProductEditScreen = ({ match, history }) => {
 						</Row>
 						<Row>
 							<Col md={6}>
-								<Form.Group controlId='countInStock_XXL'>
-									<Form.Label>Stock of XXL</Form.Label>
+								<Form.Group controlId='countInStock_XL_40'>
+									<Form.Label>
+										Stock of{' '}
+										{selectedcategory === 'jackets' ||
+										selectedcategory === 'suits'
+											? '40'
+											: 'XL'}
+									</Form.Label>
 									<Form.Control
 										type='text'
-										placeholder='Enter Stock of XXL'
-										value={countInStock_XXL}
-										required
-										onChange={(e) => setCountInStock_XXL(e.target.value)}
-									></Form.Control>
-								</Form.Group>
-							</Col>
-
-							<Col md={6}>
-								<Form.Group controlId='countInStock_XL'>
-									<Form.Label>Stock of XL</Form.Label>
-									<Form.Control
-										type='text'
-										placeholder='Enter Stock of XL'
-										value={countInStock_XL}
+										value={countInStock_XL_40}
 										required
 										onChange={(e) => setCountInStock_XL(e.target.value)}
 									></Form.Control>
 								</Form.Group>
 							</Col>
+
+							<Col md={6}>
+								<Form.Group controlId='countInStock_2XL_42'>
+									<Form.Label>
+										Stock of{' '}
+										{selectedcategory === 'jackets' ||
+										selectedcategory === 'suits'
+											? '42'
+											: '2XL'}
+									</Form.Label>
+									<Form.Control
+										type='text'
+										value={countInStock_2XL_42}
+										required
+										onChange={(e) => setCountInStock_XXL(e.target.value)}
+									></Form.Control>
+								</Form.Group>
+							</Col>
 						</Row>
+
+						<Row>
+							<Col md={6}>
+								<Form.Group controlId='countInStock_XL_40'>
+									<Form.Label>
+										Stock of{' '}
+										{selectedcategory === 'jackets' ||
+										selectedcategory === 'suits'
+											? '44'
+											: '3XL'}
+									</Form.Label>
+									<Form.Control
+										type='text'
+										value={countInStock_3XL_44}
+										required
+										onChange={(e) => setCountInStock_3XL_44(e.target.value)}
+									></Form.Control>
+								</Form.Group>
+							</Col>
+
+							<Col md={6}>
+								<Form.Group controlId='countInStock_2XL_42'>
+									<Form.Label>
+										Stock of{' '}
+										{selectedcategory === 'jackets' ||
+										selectedcategory === 'suits'
+											? '46'
+											: '4XL'}
+									</Form.Label>
+									<Form.Control
+										type='text'
+										placeholder='Enter Stock of 2XL'
+										value={countInStock_4XL_46}
+										required
+										onChange={(e) => setCountInStock_4XL_46(e.target.value)}
+									></Form.Control>
+								</Form.Group>
+							</Col>
+						</Row>
+
+						<Row>
+							<Col md={6}>
+								<Form.Group controlId='countInStock_XL_40'>
+									<Form.Label>
+										Stock of{' '}
+										{selectedcategory === 'jackets' ||
+										selectedcategory === 'suits'
+											? '48'
+											: '5XL'}
+									</Form.Label>
+									<Form.Control
+										type='text'
+										placeholder='Enter Stock of XL'
+										value={countInStock_5XL_48}
+										required
+										onChange={(e) => setCountInStock_5XL_48(e.target.value)}
+									></Form.Control>
+								</Form.Group>
+							</Col>
+
+							<Col md={6}>
+								<Form.Group controlId='countInStock_2XL_42'>
+									<Form.Label>
+										Stock of{' '}
+										{selectedcategory === 'jackets' ||
+										selectedcategory === 'suits'
+											? '50'
+											: '6XL'}
+									</Form.Label>
+									<Form.Control
+										type='text'
+										placeholder='Enter Stock of 2XL'
+										value={countInStock_6XL_50}
+										required
+										onChange={(e) => setCountInStock_6XL_50(e.target.value)}
+									></Form.Control>
+								</Form.Group>
+							</Col>
+						</Row>
+
+						{selectedcategory === 'jackets' || selectedcategory === 'suits' ? (
+							<Row>
+								<Col md={6}>
+									<Form.Group controlId='countInStock_XL_40'>
+										<Form.Label>Stock of 52</Form.Label>
+										<Form.Control
+											type='text'
+											value={countInStock_52}
+											required
+											onChange={(e) => setCountInStock_52(e.target.value)}
+										></Form.Control>
+									</Form.Group>
+								</Col>
+
+								<Col md={6}>
+									<Form.Group controlId='countInStock_2XL_42'>
+										<Form.Label>Stock of 54</Form.Label>
+										<Form.Control
+											type='text'
+											value={countInStock_54}
+											required
+											onChange={(e) => setCountInStock_54(e.target.value)}
+										></Form.Control>
+									</Form.Group>
+								</Col>
+							</Row>
+						) : null}
 
 						<Form.Group controlId='description'>
 							<Form.Label>Description</Form.Label>

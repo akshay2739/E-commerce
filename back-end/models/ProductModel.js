@@ -22,6 +22,10 @@ const Products = sequelize.define(
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
+		gender: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
 		category: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -38,20 +42,49 @@ const Products = sequelize.define(
 			type: DataTypes.INTEGER,
 			allowNull: false,
 		},
-		countInStock_S: {
+		countInStock_S_34: {
 			type: DataTypes.INTEGER,
+			defaultValue: -1,
 		},
-		countInStock_M: {
+		countInStock_M_36: {
 			type: DataTypes.INTEGER,
+			defaultValue: -1,
 		},
-		countInStock_L: {
+		countInStock_L_38: {
 			type: DataTypes.INTEGER,
+			defaultValue: -1,
 		},
-		countInStock_XL: {
+		countInStock_XL_40: {
 			type: DataTypes.INTEGER,
+			defaultValue: -1,
 		},
-		countInStock_XXL: {
+		countInStock_2XL_42: {
 			type: DataTypes.INTEGER,
+			defaultValue: -1,
+		},
+		countInStock_3XL_44: {
+			type: DataTypes.INTEGER,
+			defaultValue: -1,
+		},
+		countInStock_4XL_46: {
+			type: DataTypes.INTEGER,
+			defaultValue: -1,
+		},
+		countInStock_5XL_48: {
+			type: DataTypes.INTEGER,
+			defaultValue: -1,
+		},
+		countInStock_6XL_50: {
+			type: DataTypes.INTEGER,
+			defaultValue: -1,
+		},
+		countInStock_52: {
+			type: DataTypes.INTEGER,
+			defaultValue: -1,
+		},
+		countInStock_54: {
+			type: DataTypes.INTEGER,
+			defaultValue: -1,
 		},
 	},
 	{

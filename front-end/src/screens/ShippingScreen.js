@@ -56,14 +56,14 @@ const ShippingScreen = ({ history }) => {
 							onChange={(e) => setOrderType(e.target.value)}
 						></Form.Check>
 
-						<Form.Check
+						{/* <Form.Check
 							type='radio'
 							label='Home Delivery'
 							id='homeDelivery'
 							name='paymentMethod'
 							value='homeDelivery'
 							onChange={(e) => setOrderType(e.target.value)}
-						></Form.Check>
+						></Form.Check> */}
 					</Col>
 				</Form.Group>
 			</Form>
