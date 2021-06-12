@@ -44,6 +44,8 @@ const ProductEditScreen = ({ match, history }) => {
 		success: successUpdate,
 	} = productUpdate
 
+	console.log(product)
+
 	useEffect(() => {
 		window.scrollTo(0, 0)
 		if (successUpdate) {
@@ -180,8 +182,12 @@ const ProductEditScreen = ({ match, history }) => {
 										size='md'
 										onChange={(e) => handleGenderChange(e)}
 									>
-										<option value='men'>Men</option>
-										<option value='women'>Women</option>
+										<option value='men' selected={product.gender === 'men'}>
+											Men
+										</option>
+										<option value='women' selected={product.gender === 'women'}>
+											Women
+										</option>
 									</Form.Control>
 								</Form.Group>
 							</Col>
@@ -214,9 +220,24 @@ const ProductEditScreen = ({ match, history }) => {
 										size='md'
 										onChange={(e) => handleCategoryChange(e)}
 									>
-										<option value='shirts'>Shirts</option>
-										<option value='suits'>Suits</option>
-										<option value='jackets'>Jackets</option>
+										<option
+											value='shirts'
+											selected={product.category === 'shirts'}
+										>
+											Shirts
+										</option>
+										<option
+											value='suits'
+											selected={product.category === 'suits'}
+										>
+											Suits
+										</option>
+										<option
+											value='jackets'
+											selected={product.category === 'jackets'}
+										>
+											Jackets
+										</option>
 									</Form.Control>
 								</Form.Group>
 							</Col>

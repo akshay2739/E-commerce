@@ -11,6 +11,7 @@ import {
 	PRODUCT_DETAIL_FAILURE,
 	PRODUCT_DETAIL_REQUEST,
 	PRODUCT_DETAIL_SUCCESS,
+	PRODUCT_DETAIL_RESET,
 	PRODUCT_DELETE_REQUEST,
 	PRODUCT_DELETE_FAILURE,
 	PRODUCT_DELETE_SUCCESS,
@@ -20,37 +21,38 @@ import {
 	PRODUCT_UPDATE_REQUEST,
 	PRODUCT_UPDATE_FAILURE,
 	PRODUCT_UPDATE_SUCCESS,
+	PRODUCT_UPDATE_RESET,
 } from '../constant/product.constant'
 
-export const listProducts = (keyword = '', pageNumber = '') => async (
-	dispatch
-) => {
-	try {
-		dispatch({
-			type: PRODUCT_LIST_REQUEST,
-		})
+export const listProducts =
+	(keyword = '', pageNumber = '') =>
+	async (dispatch) => {
+		try {
+			dispatch({
+				type: PRODUCT_LIST_REQUEST,
+			})
 
-		const { data } = await Axios.get(
-			`/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
-		)
-		dispatch({
-			type: PRODUCT_LIST_SUCCESS,
-			payload: data,
-		})
-	} catch (error) {
-		const message =
-			error.response && error.response.data.message
-				? error.response.data.message
-				: error.message
-		if (message === 'Not authorized, token failed') {
-			dispatch(logout())
+			const { data } = await Axios.get(
+				`/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+			)
+			dispatch({
+				type: PRODUCT_LIST_SUCCESS,
+				payload: data,
+			})
+		} catch (error) {
+			const message =
+				error.response && error.response.data.message
+					? error.response.data.message
+					: error.message
+			if (message === 'Not authorized, token failed') {
+				dispatch(logout())
+			}
+			dispatch({
+				type: PRODUCT_LIST_FAILURE,
+				payload: message,
+			})
 		}
-		dispatch({
-			type: PRODUCT_LIST_FAILURE,
-			payload: message,
-		})
 	}
-}
 
 export const listNewProducts = () => async (dispatch) => {
 	try {
@@ -227,6 +229,14 @@ export const updateProduct = (product) => async (dispatch, getState) => {
 		dispatch({
 			type: PRODUCT_UPDATE_SUCCESS,
 			payload: data,
+		})
+
+		dispatch({
+			type: PRODUCT_UPDATE_RESET,
+		})
+
+		dispatch({
+			type: PRODUCT_DETAIL_RESET,
 		})
 	} catch (error) {
 		const message =
